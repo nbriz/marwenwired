@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+
+		var boids = [];
+		var colors = [];
+		
+		for (var i = 0; i < 100; i++) {
+			var x = Math.random() * WIDTH/4;
+			var y = Math.random() * HEIGHT/4;
+			var radius = 10;
+			var boid = new Boid(x,y,radius);
+			boids.push( boid );
+			colors.push( randomColor( 0.3 ) );
+		};
+		
+				
+		function draw(){
+			
+			for (var i = 0; i < boids.length; i++) {
+				
+				boid = boids[ i ];
+				
+				if(leftMouseDown){
+					boid.avoid( mouseX, mouseY );
+				} 
+				else {
+					boid.seek( mouseX, mouseY );
+				}
+				
+				if(rightMouseDown){
+					ctx.clearRect(0,0,WIDTH,HEIGHT);
+				}
+				
+				//boid.flock( boids );
+				boid.avoid( boids );
+				boid.move();
+				
+				ctx.fillStyle = colors[i];
+				ctx.fillRect( boid.x, boid.y, 50, 50 );
+			};
+			
+			
+			
+		}
+		
+		setInterval(draw,1000/60);
+
+	</script>
+</body>
+</html>

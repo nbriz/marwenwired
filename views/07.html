@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+		<link rel="stylesheet" href="/js/highlight/styles/monokai_sublime.css">
+		<style>
+
+			/*highlight overrides*/
+
+			.hljs-keyword { color: #66D9EF; }
+			.hljs-tag .hljs-value,{ color: #E6DB74; }
+			.hljs-function { color: #fff; }
+			.hljs-built_in{ color: #66D9EF; }
+
+			.c select { color: black;}
+
+		</style>
+		
+
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+
+		
+		<iframe src="canvascheatsheet.html" id="cheatsheet"></iframe>
+
+		<section id="main">
+			<div class="container">
+
+				<h1>the Algorithms <br>that run our world</h1>
+				<br><br>
+				<br>
+
+				<p>
+					"The importance of algorithms in our lives today cannot be overstated. They are used virtually everywhere, from financial institutions to dating sites. But some algorithms shape and control our world more than others — and these ten are the most significant.
+					<br><br>
+					Just a quick refresher before we get started. Though there's no formal definition, computer scientists describe algorithms as a set of rules that define a sequence of operations. They're a series of instructions that tell a computer how it's supposed to solve a problem or achieve a certain goal. A good way to think of algorithms is by visualizing a flowchart."
+					<br><br>
+					— <a href="http://io9.com/the-10-algorithms-that-dominate-our-world-1580110464" target="_blank">The 10 Algorithms That Dominate Our World</a>
+				</p>
+				<br><br><br>
+				<br>
+				<iframe width="800" height="400" src="//www.youtube.com/embed/vSi6YoTPWLw" frameborder="0" allowfullscreen class="rwd" cla ></iframe>
+				<br><br>
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<iframe width="1000" height="315" src="//www.youtube.com/embed/ENWVRcMGDoU" frameborder="0" allowfullscreen class="rwd"></iframe>
+				    </div>
+				    <div class="column half"> 
+				    	<iframe width="1000" height="315" src="//www.youtube.com/embed/H_aLU-NOdHM" frameborder="0" allowfullscreen class="rwd"></iframe>
+				    </div>
+				</div>
+				
+
+				<br><br><br><br>
+
+				<h2> algorithmic compositions </h2>
+				<br><br>
+
+				<p>
+					algorithms certainly have a huge impact on our lives, and their effects can be complex, but getting started writing them doesn’t have to be. what you need is a basic understanding of programming ( how to declare variables and functions, how to create loops and conditional statements ) as well as a little creativity.
+					<br><br>
+					the javascript <code class="k">Math</code> object can do more than convert degrees to radians ( like we used it last week ), it has lots of built in methods including <code class="k">Math.sin()</code> and <code class="k">Math.cos()</code> for sine and cosine, <code class="k">Math.round()</code> to round a number, and my favorite <code class="k">Math.random()</code> which outputs a random number between 0 and 1. Javascript ( like most programming languages ) has mathematical operators for doing arithmetic like <code class="k">+</code> addition, <code class="k">-</code> subtraction, <code class="k">*</code> multiplication, <code class="k">/</code> division and <code class="k">%</code> modulus ( which returns the remainder of a division operation instead of the product )
+					<br><br>
+					we can use these in different ways to create algorithms for our sketch
+				</p><br><br><br>
+
+				<h3> controlled randomness </h3>
+				<br><br>
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		you can use <code class="k">Math.random()</code> to create variables for positioning. the random method returns a value between 0 and 1, so if you want your range to be wider ( say between 0 and the width of your canvas ) you need to multiply it by some number 
+				    		<br><br>
+				    		our <b>wired.js</b> library also has a special random function called <code class="k">randomColor()</code> which returns a random color value, we could give it an optional float parameter to specify the alpha level. below is an example using our circle function from last week and for loops to create a "random" composition
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+// returns a float from 0.0 to 1.0
+var ran = Math.random(); 
+
+// returns a float from 0.0 to 100.0
+var ran = Math.random() <span style="color:#F92672">*</span> 100; 
+
+// returns a float from 
+// 0.0 to however wide our page is
+var ran = Math.random() <span style="color:#F92672">*</span> WIDTH; 
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+				<iframe src="editor.html?ex=js14" class="eframe" style="height:460px"></iframe>
+				<br><br><br>
+
+
+				<h3> Array ( data structure ) </h3>
+				<br><br>
+
+				<p>
+					each time the for loop above runs the value of x and y change, we can change the value of a variable as many times as we want, but typically we can only assign one value to each variable. sometimes it’s helpful to assign lots of different related values to a single variable we can do this with something called an array, an array value begins with a <code class="k">[</code> followed by the values separated by <code class="k">,</code> and then ends with a <code class="k">]</code>
+				</p><br><br>
+
+				<img src="images/js8_diagram.png" class="rwd">
+				<br><br>
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		you can get a specific value in an array by calling the array name followed by the brackets with the index number of the value you want inside the brackets. the index is the order or place in the array the value you want is in. remember that in programming we start counting from 0, so the first value is <code class="k">primes[0]</code> and the second value is <code class="k">primes[1]</code>
+				    		<br><br>
+				    		you can also find out how many items are in an array by using the array property <code class="k">.length</code>
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+var primes <span style="color:#F92672">=</span> [ 2, 3, 5, 7, 11 ];
+
+primes[0]; // returns the value 2
+primes[1]; // returns the value 3
+primes[2]; // returns the value 5
+primes[3]; // returns the value 7
+primes[4]; // returns the value 11
+
+primes.<span style="color:#66D9EF">length</span> // returns the value 5 
+// because there are 5 items in the array
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+				<p>
+					in the example below i’ve created an array called <b>f</b> which contains the first few numbers of the <a href="https://en.wikipedia.org/wiki/Fibonacci_number" target="_blank">Fibonacci Sequence</a> ( a set of numbers which have been used by artists to create “beautiful” composition for centuries ). we then create a for loop that loops as many times as their are items in the array <coke class="k">i < f.length</coke> and then we use the iterator variable ( i ) to select that particular value <code class="k">f[i]</code> in the array and create a simple algorithm with it.
+				</p><br>
+				<br>
+
+				<iframe src="editor.html?ex=js15" class="eframe" style="height:510px"></iframe>
+				<br><br><br>
+
+				<p>
+					arrays can also contain strings, a good example of this is to use an array to store the paths to different images. in the example below we also create a variable ( <b>i</b> ) to keep track of which index in the array we want. then in our draw loop we create a conditional statement to check if the mouse is being pressed, if it is we pick a random index from the array. notice that we're using two lines of code to get a random index, first we use <code class="k">Math.random()*paths.length</code> to get a random float between 0 and the length of the array, but this will return a float value ( ex: 3.456824 ) and we need a solid integer value ( ex: 3 ) so we use <code class="k"> parseInt() </code> to turn the random float into an integer.
+				</p>
+				<br>
+
+				<iframe src="editor.html?ex=js16" class="eframe" style="height:650px"></iframe>
+				<br><br><br>
+
+				<br>
+				<h2> Sine + cosine </h2>
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column two-thirds"> 
+				    	<p>
+							trigonometry art! the trigonometric functions or “circular functions” ( like sine, cosine and tangent ) may have seemed pointless in math class but can and are used for all sorts of things. this is an art class… so we’ll use them to draw. here is a gif that shows how the sine and cosine functions relate to different shapes ( circles and “sine waves” ) 
+						</p>
+				    </div>
+				    <div class="column third"> 
+				    	<img src="images/cos_sin.gif" class="rwd">
+				    </div>
+				</div>
+				
+				<br><br>
+				
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<div id="gui1" class="gui"></div>
+				    </div>
+				    <div class="column half"> 
+				    	<p>
+				    		the example below uses the <code class="k">Math.sin()</code> method and some simple arithmetic to create a vertical sine wave pattern, use the sliders to adjust the different parameters of the algorithm to see how they effect the final composition.
+				    	</p>
+				    </div>
+				</div><br>
+				<iframe src="editor.html?ex=js17&val1=100&val2=1&val3=30&val4=200&val5=20&val6=3" class="eframe" id="e1" style="height:490px"></iframe>
+				<br><br><br>
+
+				<p>
+					we can put our circle function inside of an animation loop and use the sine and cosine functions to determine it’s x, y and radius parameters. in order for there to be some kind of change from frame to frame we need to pass the sine and cosine function a value that changes each frame. one simple way to do this is to use the current time ( which is naturally always changing ). there’s an object called <b>Date</b> which is used to tell time in JavaScript, we can also use the <code class="k">Date.now()</code> method to keep track of the change in time and use that in conjunction with our sine and cosine functions so that the values change each frame.    
+				</p><br>
+
+				<iframe src="editor.html?ex=js18" class="eframe" style="height:570px"></iframe>
+				<br><br><br>
+
+
+				<p>
+					another thing we could do is put the entire <b>for loop</b> from before into an animation loop and pass the <b>mouseX</b> or <b>mouseY</b> values into a few different spots and see what happens. experiment!   
+				</p><br>
+
+				<iframe src="editor.html?ex=js19" class="eframe" style="height:580px"></iframe>
+				<br><br><br>
+
+
+				<br><br><br><br>
+
+				<h2> the big idea </h2><br><br>
+
+				<p>
+					the media make algorithms sound magical and mysterious, but now that you’ve written some yourself how would you explain to a friend what an algorithm really is? 
+				</p>
+
+				<br><br>
+				<form action="/answer" method="post" enctype="multipart/form-data" >
+					<textarea name="answer"></textarea><br>
+					<input type="text" name="name" placeholder="your first name" class="half"/>
+					<input type="text" name="day" value="day7" style="display:none;" />
+					<input type="submit" value="Submit" id="submit" class="button half" />
+				</form>
+
+
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="/js/highlight/highlight.pack.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+
+
+			var set = {
+				loop: 25,
+				inc: 1.0,
+				xmult: 30,
+				xadd: 200,
+				ymult: 20,
+				radius: 3
+			}
+
+			function getString(){
+				return "editor.html?ex=js17&val1="+Math.floor(set.loop)
+				+"&val2="+Math.round(set.inc*10)/10
+				+"&val3="+Math.floor(set.xmult)
+				+"&val4="+Math.floor(set.xadd)
+				+"&val5="+Math.floor(set.ymult)
+				+"&val6="+Math.floor(set.radius);
+			}
+			
+
+			var gui1 = new dat.GUI({ autoPlace: false });			// create dat gui
+			gui1.domElement.childNodes[1].style.display ="none";	// hide "close" button
+			
+			var loop = gui1.add(set, 'loop', 10, 25).name('loop until');					
+			loop.onFinishChange(function(val){   $('#e1').attr('src',getString());   });
+			
+			var inc = gui1.add(set, 'inc', 0.1, 1.5).name('increment by');					
+			inc.onFinishChange(function(val){   $('#e1').attr('src',getString());   });
+
+			var xmult = gui1.add(set, 'xmult', 1, 100).name('multiply x by');					
+			xmult.onFinishChange(function(val){   $('#e1').attr('src',getString());   });
+
+			var xadd = gui1.add(set, 'xadd', 0, 400).name('add to x');					
+			xadd.onFinishChange(function(val){   $('#e1').attr('src',getString());   });
+
+			var ymult = gui1.add(set, 'ymult', 1, 100).name('multiply y by');					
+			ymult.onFinishChange(function(val){   $('#e1').attr('src',getString());   });
+
+			var radius = gui1.add(set, 'radius', 1, 100).name('circle radius');					
+			radius.onFinishChange(function(val){   $('#e1').attr('src',getString());   });
+
+
+			var ele1 = document.getElementById('gui1');				// add gui to element on page
+			ele1.appendChild(gui1.domElement);
+
+		</script>
+
+	</body>
+</html>

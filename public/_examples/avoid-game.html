@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool net art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+
+		var x = Math.random()*WIDTH;
+		var y = Math.random()*HEIGHT;
+
+		var emoji = new Image();
+		emoji.src = "images/emoji5.png";
+
+		var b = new Boid(x,y);
+
+		var points = 0;
+		
+		function draw(){
+			ctx.clearRect(0,0,WIDTH,HEIGHT);
+			
+			ctx.font = "24px Arial";
+			ctx.fillText(points+" points", WIDTH-100, 50);
+
+			b.avoid(mouseX,mouseY);
+			b.move();
+			
+			if(mouseDown){
+				console.log(mouseX,mouseY);
+				console.log(b.x,b.y);
+			}			
+			
+
+			
+			if( mouseX >= b.x && mouseX <= b.x+50 
+			    && mouseY >= b.y && mouseY <= b.y+50
+			  ){
+				points += 1;
+			}
+
+			ctx.drawImage( emoji, b.x, b.y, 50,50 );
+		}
+
+		setInterval(draw,1000/60); 
+
+
+	</script>
+</body>
+</html>

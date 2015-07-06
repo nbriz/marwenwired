@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+		
+		var p = [];
+		var b = [];
+		
+		for (var i = 0; i < 100; i++) {
+			//create particle vectors
+			var x = canvas.width/2;
+			var y = canvas.height;
+			var speed = Math.random()*4+4;
+			var direction = -Math.PI/2 + (Math.random()*.2-.1);
+			var gravity = 0.1;
+			var part = new Particle(x, y, speed, direction, gravity);
+				part.radius = 10;
+				part.bounce = -0.8;
+			p.push( part );
+			// create boids
+			var boid = new Boid(x,y);
+				b.push( boid );
+		} 
+		
+		function draw(){
+			
+			ctx.clearRect( 0,0,WIDTH,HEIGHT );
+			
+			for (var i = 0; i < p.length; i++) {
+				p[i].update();
+				
+				if (p[i].x + p[i].radius > canvas.width) {
+					p[i].x = canvas.width - p[i].radius;
+					p[i].vx *= p[i].bounce;
+				}
+				if (p[i].x - p[i].radius < 0) {
+					p[i].x = p[i].radius;
+					p[i].vx *= p[i].bounce;
+				}
+				if (p[i].y + p[i].radius > canvas.height) {
+					p[i].y = canvas.height - p[i].radius;
+					p[i].vy *= p[i].bounce;
+				}
+				if (p[i].y - p[i].radius < 0) {
+					p[i].y = p[i].radius;
+					p[i].vy *= p[i].bounce;
+				}
+				
+				if (p[i].y == canvas.height - p[i].radius) {
+					p[i].friction = 0.97;
+				} else {
+					p[i].friction = 1;
+				}
+				
+				//
+				
+				boid.avoid( mouseX, mouseY );
+				boid.move();
+				
+				//
+				
+				ctx.fillRect( p[i].x+b[i].position.x, p[i].y+b[i].position.y, 10, 10 );
+			}
+	
+		
+		}
+		
+		setInterval(draw, 1000/60);
+		
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool net art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+		var x = WIDTH/2;
+		var y = HEIGHT/2;
+		var size = 30;
+		
+		var pig = new Image();
+		pig.src = "images/emoji4.png";
+		var c = new Particle( x, y, 0,0 );
+		c.mass = 1500;
+		c.radius = size/2; 
+
+		var emoji = new Image();
+		emoji.src = "images/emoji1.png";
+
+		p = [];
+		for(var i=0; i<100; i++){
+			var part = new Particle( x, y, 1, -1.9, 0.1 );
+			part.addGravitation( c );
+			p.push( part );
+		}
+		
+
+		
+		function draw(){
+			ctx.clearRect(0,0,WIDTH,HEIGHT);
+			
+			c.x = mouseX - size/2;
+			c.y = mouseY - size/2;
+			ctx.drawImage(pig, c.x,c.y, size,size);
+
+			for(var i=0; i<p.length; i++){
+				p[i].update();
+				if( p[i].y > HEIGHT ){
+					p[i].y = HEIGHT/2;
+					p[i].x = WIDTH/2;
+					p[i].setHeading( Math.random() - 1.6 );
+					p[i].setSpeed( Math.random()*4 );
+				}
+				ctx.drawImage(emoji, p[i].x,p[i].y, size,size);
+			}
+		}
+		setInterval( draw, 1000/60 ); 
+
+
+	</script>
+</body>
+</html>

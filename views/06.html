@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+		<link rel="stylesheet" href="/js/highlight/styles/monokai_sublime.css">
+		<style>
+
+			/*highlight overrides*/
+
+			.hljs-keyword { color: #66D9EF; }
+			.hljs-tag .hljs-value,{ color: #E6DB74; }
+			.hljs-function { color: #fff; }
+			.hljs-built_in{ color: #66D9EF; }
+
+			.c select { color: black;}
+
+		</style>
+		
+
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+		
+		<iframe src="canvascheatsheet.html" id="cheatsheet"></iframe>
+
+		<section id="main">
+			<div class="container">
+
+				<h1>Paint by Numbers </h1>
+				<br><br>
+				<br>
+
+				<h2> drawing a polygon </h2>
+				<br><br>
+
+				<p>
+					up until now we’ve mostly been drawing rectangles. drawing more complicated shapes ( or "paths" ) requires a few more lines of code (1) <code class="k">ctx.beginPath()</code> to start a new path, (2) <code class="k">ctx.moveTo(x,y)</code> to specify where you want to start your path (3) <code class="k">ctx.lineTo(x,y)</code> to draw a line to a new point ( create as many of these points as you want ), (4) then you can either stroke your path with <code class="k">ctx.stroke()</code> or fill it with <code class="k">ctx.fill()</code> or both, and finally (5) <code class="k">ctx.closePath()</code>
+				</p>
+
+				<br><br>
+				<iframe src="editor.html?ex=js8" class="eframe" id="e1" style="height:360px"></iframe>
+				<br><br><br><br><br>
+
+
+
+				<h2> drawing a circle </h2>
+				<br><br>
+
+				<br>
+				<img src="images/js4_diagram.png" class="rwd">
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+							to draw an arc or circle use the <code class="k">ctx.arc()</code> method instead of the lineTo method, the arc method takes a few parameters explained in the diagram above 
+						</p>
+				    </div>
+				    <div class="column half"> 
+				    	<img src="images/pi.gif" class="rwd">
+				    </div>
+				</div><br><br>
+
+				<br>
+				<iframe src="editor.html?ex=js9" class="eframe" id="e1" style="height:360px"></iframe>
+				<br><br>
+
+				<p>
+					four lines of code and five parameters is a lot to write especially if we want to draw a few circles. and if we add more lines to our circle ( like change the color or add a fill ) it'll get even longer! but we can minimize our code by creating a custom circle function like this one. in between our custom circle function’s parenthesis we can declare variables to use as arguments, three useful ones might be <b>x</b>, <b>y</b> and <b>radius</b>. then we can copy+paste our the code that creates a circle in between our custom function’s curly brackets and replace the hardcoded x,y and radius values with are argument variables. now we can reuse this as many times as we want
+				</p><br><br>
+
+				<iframe src="editor.html?ex=js12" class="eframe" id="e1" style="height:460px"></iframe>
+				<br><br><br><br>
+
+				<h2> more loops </h2>
+				<br><br>
+
+				<p>
+					now let’s say we want to draw tons of circles ( maybe dozens maybe hundreds! ) that’s still gonna be a lot of code because we’ll have to call our <coke class="k">circle()</coke> function tons of times. one way to avoid having to type the same thing over and over again is to use a kind of loop called a <b>for loop</b>
+				</p>
+
+				<br><br>
+				<img src="images/js7_diagram.png" class="rwd">
+				<br><br>
+
+				<p>
+					in the example below we create a for loop that starts an increment variable ( <b>i</b> ) at <b>0</b>, and it increments it by <b>40</b> each loop. the loop is set to keep going until it reaches <b>400</b>, and because 40 goes into 400 ten times, the loop should run 10 times and we should get 10 circles on the screen.
+				</p>
+
+				<br>
+				<iframe src="editor.html?ex=js13" class="eframe" id="e1" style="height:440px"></iframe>
+				<br><br>
+
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		another kind of programmable loop is called a <b>while loop</b>. inside the while loop’s parenthesis you only specify a conditional, the incrementing of variables is something you hand inside the loop itself. the following example does the same as the example above but implementing a while loop instead of a for loop
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+var i = 0;
+while (i < 400) {
+    i+=40;
+    circle( i, i, 50 );
+};
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+
+				<br><br><br><br><br><br>
+				
+
+				<h2> creating custom shapes </h2>
+				<br><br>
+
+				<iframe src="editor.html?ex=js10" class="eframe" id="e1" style="height:555px"></iframe>
+				<br><br>
+				
+				<p>
+					some custom shapes can get so long ( like the one above ) that it helps to consolidate them into a custom function just like we did with our circle. below are some steps you can take to create your own custom shape function.
+				</p>	<br><br>
+
+
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 0:</b> we’ll start by creating a new function to contain our custom shape, you can call it whatever you want. I’ll call mine “chiStar” because it’s the star from the Chicago flag. since we’re creating our own custom function we get to specify which arguments it takes. three useful parameters for our shape might be an <b>x</b> coordinate,  <b>y</b> coordinate and <b>rotation</b>. we can declare those variables by listing them between the function’s parentheses.   
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+function chiStar( x, y, rotation ){
+	
+}
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 1:</b> next copy+paste all the code from your custom shape in between the functions curly brackets ( make sure to keep your code clean and readable by indenting ). 
+							<br><br>
+							next we’ll try calling our new function underneath with the x, y and rotation arguments set. you’ll notice that our function is ignoring our parameters, that’s because we’re not using the corresponding variables inside our custom function yet.   
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+function chiStar( x, y, rotation ){
+    ctx.fillStyle <span style="color:#F92672">=</span> "rgba(255,0,0,0.3)";
+    ctx.strokeStyle <span style="color:#F92672">=</span> "rgba(0,150,255,0.3)";
+    ctx.lineWidth <span style="color:#F92672">=</span> 5;
+    ctx.beginPath();
+    ctx.moveTo(145,42);
+    ctx.lineTo(165,103);
+    ctx.lineTo(228,89);
+    ctx.lineTo(186,138);
+    ctx.lineTo(226,184);
+    ctx.lineTo(164,171);
+    ctx.lineTo(145,232);
+    ctx.lineTo(124,171);
+    ctx.lineTo(61,184);
+    ctx.lineTo(104,138);
+    ctx.lineTo(61,89);
+    ctx.lineTo(124,103);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+}
+
+chiStar(100,100,0);
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<h4> translation </h4>
+				<br>
+
+				<img src="images/js5_diagram.gif" class="rwd">
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 2:</b> let’s use our x,y arguments, but rather than using them to draw our lines/shapes we’ll use them to move the entire canvas. by default our drawing context starts at (0,0) but we can move our canvas by using the <code class="k">ctx.translate()</code> method which takes x,y coordinates   
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+function chiStar( x, y, rotation ){
+	
+    ctx.translate(x,y);
+
+    ctx.fillStyle <span style="color:#F92672">=</span> "rgba(255,0,0,0.3)";
+    // abreviated for clarity ...
+    ctx.beginPath();
+    ctx.moveTo(145,42);
+    ctx.lineTo(165,103);
+    // abreviated for clarity ...
+    ctx.stroke();
+}
+
+chiStar(100,100,0);
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		next we’ll reposition our entire shape so that the center of the shape is at our new (0,0) position. we’ll do this by creating two new variables ( let’s call them <b>dx</b> and <b>dy</b> ) and then adding dx to every x value in our moveTo/lineTo coordinates and adding dy to every y value. you’ll probably have to play a little bit with what values to set your dx,dy   
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+function chiStar( x, y, rotation ){
+	
+    ctx.translate(x,y);
+
+    var dx <span style="color:#F92672">=</span> -145;
+    var dy <span style="color:#F92672">=</span> -137;
+
+    ctx.fillStyle = "rgba(255,0,0,0.3)";
+    // abreviated for clarity ...
+    ctx.beginPath();
+    ctx.moveTo(145<span style="color:#F92672">+</span>dx,42<span style="color:#F92672">+</span>dy);
+    ctx.lineTo(165<span style="color:#F92672">+</span>dx,103<span style="color:#F92672">+</span>dy);
+    // abreviated for clarity ...
+    ctx.stroke();
+}
+
+chiStar(100,100,0);
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<h4> rotation </h4>
+				<br>
+
+				<img src="images/js6_diagram.gif" class="rwd">
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		now that we’ve got our shape centered on the (0,0) coordinate of our translated canvas we can rotate it around the center! we do this by using the <code class="k">ctx.rotate()</code> method. the rotate method takes a value in radians as an argument ( the same way we declared the start and end angles when drawing our circles ). but if you prefer to specify rotation in degrees you can use the <code class="k"> Math.degreesToRads()</code> to convert the rotation argument to take degrees instead.   
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+function chiStar( x, y, rotation ){
+
+    ctx.translate(x,y);
+
+    rotation <span style="color:#F92672">=</span> Math.degreesToRads( rotation );
+    ctx.rotate( rotation );
+
+    var dx <span style="color:#F92672">=</span> -145;
+    var dy <span style="color:#F92672">=</span> -137;
+
+    ctx.fillStyle = "rgba(255,0,0,0.3)";
+    // abreviated for clarity ...
+    ctx.beginPath();
+    ctx.moveTo(145<span style="color:#F92672">+</span>dx,42<span style="color:#F92672">+</span>dy);
+    ctx.lineTo(165<span style="color:#F92672">+</span>dx,103<span style="color:#F92672">+</span>dy);
+    // abreviated for clarity ...
+    ctx.stroke();
+}
+
+chiStar(100,100,0);
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		now we’ve got a custom shape! there’s only one last edit we need to make to our function. we need to restore the canvas to it’s original state at the original (0,0) coordinate so everything else we draw doesn’t come out wrong. In order to relegate our canvas state translations to our custom function alone we need to add <code class="k">ctx.save()</code> at the top of our function and <code class="k">ctx.restore()</code> at the bottom.     
+				    	</p>
+				    </div>
+<div class="column half"> 
+<pre><code class="javascript">
+function chiStar( x, y, rotation ){
+    ctx.save(); // save original state
+
+    ctx.translate(x,y);
+
+    rotation <span style="color:#F92672">=</span> Math.degreesToRads( rotation );
+    ctx.rotate( rotation );
+
+    var dx <span style="color:#F92672">=</span> -145;
+    var dy <span style="color:#F92672">=</span> -137;
+
+    ctx.fillStyle = "rgba(255,0,0,0.3)";
+    // abreviated for clarity ...
+    ctx.beginPath();
+    ctx.moveTo(145<span style="color:#F92672">+</span>dx,42<span style="color:#F92672">+</span>dy);
+    ctx.lineTo(165<span style="color:#F92672">+</span>dx,103<span style="color:#F92672">+</span>dy);
+    // abreviated for clarity ...
+    ctx.stroke();
+
+    ctx.restore(); // restore original state
+}
+
+chiStar(100,100,0);
+
+</code></pre></div>
+				</div><br><br>				
+				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ END ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+		    	<p>
+		    		here’s our new custom shape in action inside of a draw loop, using the <b>mouseX</b> and <b>mouseY</b> coordinates to specify its position and also using the <b>mouseX</b> coordinate to specify rotation. we’ve also got a conditional statement which says only draw our custom shape if the mouse is pressed down using the <b>mouseDown</b> variable 
+		    	</p>
+		    	<br><br>
+
+				<iframe src="editor.html?ex=js11" class="eframe" id="e1" style="height:810px"></iframe>
+				<br><br>
+
+
+				<br><br><br><br>
+<!-- 
+				<h2> the big idea </h2><br><br>
+
+				<p>
+					...
+				</p>
+
+				<br><br>
+				<form action="/answer" method="post" enctype="multipart/form-data" >
+					<textarea name="answer"></textarea><br>
+					<input type="text" name="name" placeholder="your first name" class="half"/>
+					<input type="text" name="day" value="day6" style="display:none;" />
+					<input type="submit" value="Submit" id="submit" class="button half" />
+				</form>
+ -->
+
+
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="/js/highlight/highlight.pack.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+
+			// var set = {
+			// 	italic: true,
+			// 	bold: false,
+			// 	size: 40,
+			// 	type: "Calibri"
+			// }
+
+			// var gui1 = new dat.GUI({ autoPlace: false });			// create dat gui
+			// gui1.domElement.childNodes[1].style.display ="none";	// hide "close" button
+			// var italic = gui1.add(set, 'italic');					
+			// italic.onFinishChange(function(val){
+			// 	var italic = (set.italic) ? "italic" : "";
+			// 	var bold = (set.bold) ? "bold" : "";
+			// 	var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+set.size+"&val4="+set.type;
+			// 	$('#e1').attr( 'src',src );
+			// });
+			// var bold = gui1.add(set, 'bold');			
+			// bold.onFinishChange(function(val){
+			// 	var italic = (set.italic) ? "italic" : "";
+			// 	var bold = (set.bold) ? "bold" : "";
+			// 	var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+set.size+"&val4="+set.type;
+			// 	$('#e1').attr( 'src',src );
+			// });
+			// var size = gui1.add(set, 'size', 1, 100).step(1);			
+			// size.onFinishChange(function(val){
+			// 	var italic = (set.italic) ? "italic" : "";
+			// 	var bold = (set.bold) ? "bold" : "";
+			// 	var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+val+"&val4="+set.type;
+			// 	$('#e1').attr( 'src',src );
+			// });
+			// var type = gui1.add(set, 'type', ["Calibri","Impact","Arial","Times","Verdana","Courier"]);			
+			// type.onFinishChange(function(val){
+			// 	var italic = (set.italic) ? "italic" : "";
+			// 	var bold = (set.bold) ? "bold" : "";
+			// 	set.type = val;
+			// 	var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+set.size+"&val4="+set.type;
+			// 	$('#e1').attr( 'src',src );
+			// });
+
+			// var ele1 = document.getElementById('gui1');				// add gui to element on page
+			// ele1.appendChild(gui1.domElement);
+
+		</script>
+
+	</body>
+</html>

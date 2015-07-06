@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+		<link rel="stylesheet" href="/js/highlight/styles/monokai_sublime.css">
+		<style>
+			.example {
+				width:400px;
+				height:300px;
+				background-color: #5fd4e9;
+				margin:30px;
+				padding:10px;
+				border-width: 2px;
+				border-color: #f92772;
+				border-style: solid;
+			}
+			.colorpicker {
+				background-image: url('images/colorpicker.gif');
+				width:557px;height:413px;
+				border:1px solid #ccc;
+				border-radius: 8px;
+				box-shadow: 3px 3px 5px 6px #eee;
+			}
+			.colorpicker:hover {
+				background-image: url('images/colorpickerValues.gif');
+			}
+
+			/*highlight overrides*/
+
+			.hljs-keyword { color: #66D9EF; }
+			.hljs-tag .hljs-value,{ color: #E6DB74; }
+
+		</style>
+		
+
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+
+		
+		<iframe src="canvascheatsheet.html" id="cheatsheet"></iframe>
+
+		<section id="main">
+			<div class="container">
+
+				<h1>JavaScript:<br> Programming the Web  </h1>
+				<br><br>
+
+				"The idea becomes a machine that makes the art" <br>Sol Lewitt, Artforum, 1967.
+				<br><br><br><br><br><br>
+
+
+
+				<h2> Artists and computers</h2>
+				<br><br><br>
+
+				
+				<iframe width="848" height="477" src="https://www.youtube.com/embed/diLa2lig3dw" frameborder="0" allowfullscreen class="rwd"></iframe>
+
+				<br><br><br>
+				<br>
+				<h2> instructions ( the idea ) as art</h2>
+				<br><br><br>
+
+				<div class="row clearfix">
+				    <div class="column third" style="text-align:center"> 
+				  		<a href="images/lewitt2.jpg" target="_blank"><img src="images/lewitt2.jpg" alt="" class="rwd"></a>
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+				  		<a href="images/lewitt.jpg" target="_blank"><img src="images/lewitt.jpg" alt="" class="rwd"></a>
+				  		<br><br>
+				  		Sol Lewitt
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+						<a href="images/lewitt3.jpg" target="_blank"><img src="images/lewitt3.jpg" alt="" class="rwd"></a>
+				    </div>
+				</div><br><br>
+
+				<div class="row clearfix">
+				    <div class="column third" style="text-align:center"> 
+				  		<a href="images/yoko.jpg" target="_blank"><img src="images/yoko.jpg" alt="" class="rwd"></a>
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+				  		<a href="images/yoko2.jpg" target="_blank"><img src="images/yoko2.jpg" alt="" class="rwd"></a>
+				  		<br><br>
+				  		Yoko Ono
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+						<a href="images/yoko3.png" target="_blank"><img src="images/yoko3.png" alt="" class="rwd"></a>
+				    </div>
+				</div><br><br>
+
+				<br>
+				<h2>drawing with code</h2>
+				<br>
+				<br><br><br>
+
+				<div class="row clearfix">
+				    <div class="column third" style="text-align:center"> 
+						<iframe width="560" height="315" src="//www.youtube.com/embed/_8DMEHxOLQE" frameborder="0" allowfullscreen class="rwd"> </iframe>
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+				  		<iframe width="560" height="315" src="//www.youtube.com/embed/-iKkEpW0N5Q" frameborder="0" allowfullscreen class="rwd"></iframe>
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+				  		<iframe src="//player.vimeo.com/video/5950300" width="500" height="275" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen class="rwd"></iframe> 
+				    </div>
+				</div><br><br>
+				
+
+				<br><br><br>
+
+				<h3>an introduction to Programming</h3>
+
+				<br><br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<br><br>
+				    	<p>
+							 just like there are different human languages, there are different programming languages. while the basic principles of programming are the same across languages the syntax and details change ( just like human languages ). we’ll be learning JavaScript ( the programming language of the web ) to create generative compositions.
+						</p>
+				    </div>
+				    <div class="column half"> 
+				    		<img src="images/languages.png" class="rwd">
+				    		<div class="tiny" style="text-align:center"> popularity of languages on github from 2008 - 2013</div>
+				    </div>
+				</div><br><br><br>
+
+
+				<h2> getting setup </h2>
+				<br><br>
+
+				<p>
+					let's start by creating a basic html page and in the body copy + paste the script tag below. we use the script element to add javascript to our html pages. you can do this in one of two ways. the first way is by creating a pair of script tags and then in the src attribute specifying the javascript file you want to load. for example we’ll be loading a small javascript library I made for demoing ‘canvas’ ( the html5 drawing element ) in class.
+				</p>
+
+				<br><br>
+
+				download it <a href="js/wired.js" target="_blank">here</a>. save it inisde a "js" folder next to your html page.
+
+				<br><br>
+
+<pre><code class="html">
+	&lt;script src="js/wired.js"&gt;&lt;/script&gt;
+
+</code></pre>
+				
+				<br><br><br><br>
+
+				<h2> we start with a Rectangle </h2>
+
+				<br><br>
+
+				<p>
+					the second way to add javascript to your code is to create a pair of <code class="k"> &lt;script&gt; &lt;/script&gt;</code> tags inside your body and write your custom javascript between them. let’s try to write our first line of javascript code! in programming each line of code is an instruction to the computer. just like we end every sentence with a period when we write english, in javascript, typically we end each line with a semicolon: <code class="k"> ;</code>. 
+					<br><br>
+					the line of javascript code below draws a rectangle.
+				</p>
+
+				<br><br><br>
+
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<div id="gui1" class="gui"></div>
+				    </div>
+				    <div class="column half"> 
+				    	<p>
+				    		<b>hover over the code to see what each part does.</b>
+				    		you can also use these sliders to change the corresponding parameters.
+				    	</p>
+				    </div>
+				</div><br>
+	
+				<iframe src="editor.html?ex=js1&val1=50&val2=50&val3=75&val4=100" class="eframe" id="e1"></iframe>
+
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column third" style="text-align:center"> 
+				    	<p>
+						to draw a <b>filled rectangle</b> use the <code class="k">ctx.fillRect( 25, 25, 100, 200 )</code> method. this method takes four parameters (1) the x position, (2) the y position, (3) the width of the rectangle, (4) the height
+						</p><br><br>		
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+				    	<p>
+						to <b>erase a rectangle</b> use the <code class="k">ctx.clearRect( 35, 35, 80, 80 )</code> method. this method takes four parameters (1) the x position, (2) the y position, (3) the width of the rectangle, (4) the height
+						</p><br><br>
+				    </div>
+				    <div class="column third" style="text-align:center"> 
+				    	<p>
+						to draw a <b>stroked rectangle</b> use <code class="k">ctx.strokeRect(35, 35, 80, 80 )</code> method. this method takes four parameters (1) the x position, (2) the y position, (3) the width of the rectangle, (4) the height
+						</p><br><br>
+				    </div>
+				</div>
+				<br><br>
+
+				the screen's coordinate system <br><br>
+
+				<img src="images/grid_diagram.png" class="rwd"><br><br>
+
+				javascript syntax breakdown ( what does it all mean? ) <br><br>
+
+				<img src="images/js1_diagram.png" class="rwd"><br><br><br>
+
+				if a swiss army knife was a JavaScript "Object" <br><br>
+
+				<img src="images/swissarmyknife.png" class="rwd"><br><br>
+
+
+
+				<br><br><br><br>
+
+				<h2> the console </h2>
+				
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		before we continue writing any more code it’s important to open up your “console”, firefox's javascript console can be opened by clicking <b>option + command + K </b> on Mac ( or control + shift + K on PC ) or in the menu Tools > Web Developers > Web Console. the console will let us know if we made a mistake in our code and which line the mistake is on. the console is also a place for testing out javascript, for example if you type the follow code and hit enter: <code class="k">WIDTH</code>. the console should return the width of your page ( which is different for everyone depending on how wide they have their window open )
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+				    	<video class="rwd" src="videos/console.mp4" autoplay loop muted></video>
+				    </div>
+				</div><br><br>
+
+				<br><br><br><br>
+
+				<h2> variables </h2>
+				
+				<br><br>
+
+				<p>
+					what exactly are <code class="k">WIDTH</code> and <code class="k">HEIGHT</code>? they are <b>variables</b>. we use variables to store data, think of them like buckets, you can store all kinds of stuff in buckets like water. and if you later decide you don't want to store water in your bucket you can poor it out and store sand in that bucket instead. variables are like code buckets for data. <br><br>
+				</p> <br><br>
+
+				<img src="images/js2_diagram.png" class="rwd"><br><br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		there's a few different kinds of data types we can store in variables, these include numbers ( which can be either whole numbers called <b>integers</b> or decimal numbers called <b>floats</b> ) or these can be words ( these are called <b>strings</b> and always have to be surrounded by quotes ). <br><br>
+				    		you can name variables whatever you want, so long as you start with <code class="k">var</code> ( to declare a new variable ) and use the proper syntax, in this case the <code class="k">=</code> after the name and the <code class="k">;</code> after the value. 
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+  var age <span style="color:#F92672">=</span> 28;		// integer value
+  var height <span style="color:#F92672">=</span> 5.9;	// float value
+  var name <span style="color:#F92672">=</span> "nick";	// string value
+
+  var me <span style="color:#F92672">=</span> name;	// returns "nick"
+
+  age <span style="color:#F92672">=</span> 29;		// overrides age
+
+</code></pre>
+				    </div>
+				</div>
+				
+
+				<br><br><br><br>
+
+				<h2> color </h2>
+			
+				<br><br>
+
+				<p>
+					in addition to having built in methods ( or functions ) ctx ( our drawing context object ) also has built in properties ( which are variables that belong to the ctx object ). we can change the values of these properties the same way we do for other variables. 
+				</p>
+
+				<br><br>
+				
+				<iframe src="editor.html?ex=js2" class="eframe"></iframe>
+
+				<br><br><br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		you can change the color of the rectangle by using the <code class="k">ctx.fillStyle</code> property, and the stroke color by using the <code class="k">ctx.fillStroke</code> property 
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+  ctx.fillStyle <span style="color:#F92672">=</span> "red";		
+  ctx.strokeStyle <span style="color:#F92672">=</span> "purple";		
+
+</code></pre>
+				    </div>
+				</div>
+
+				<br><br><br><br>
+
+				<div class="row clearfix">
+				    <div class="column third"> 
+						<p> there are only so many colors that have names ( green, purple, pink ). if you want to assign a specific color in your fillStyle or strokeStyle you need to use numerical values. <br><br>These come in different forms the most common is <b>HEX</b> which looks like <code class="k"> "#00ff33"</code>,<br> <br> or <b>RGB</b> which looks like <br> <code class="k"> "rgb( 0, 255, 204 )"</code> <br><br> or <b>RGBA</b> with the A ( or fourth parameter ) being used to specify alpha ( transparency ) from 0.0 to 1.0, adjust the example below to see the changes</p>
+				    </div>
+				    <div class="column two-thirds"> 
+				    	<div class="colorpicker"></div><br>
+				    	<div class="tiny" style="text-align:center">photoshop color picker tool</div>
+				    </div>
+				</div>
+				<br><br><br><br>
+
+				<iframe src="editor.html?ex=js3" class="eframe" style="height:350px;"></iframe>
+
+				<br><br>
+
+
+
+				<!-- writing a program is a lot like writing a recipe, you write your ingredients on top and your instructions below, and you follow your instructions from top to bottom. in a program your “variables” are your ingredients and your “functions” are groups of instructions.  -->
+				
+
+				<br><br><br><br>
+
+				<h2> the big idea </h2><br><br>
+
+				<p>
+					for decades conceptual artists have focused on the “idea” as the most important part of the art making process. artists like Yoko Ono and Sol Lewitt have made lots of work that exist simply as instructions, leaving the gallery or audience responsible for producing the object. how is programming similar to conceptual art?
+				</p>
+
+				<br><br>
+				<form action="/answer" method="post" enctype="multipart/form-data" >
+					<textarea name="answer"></textarea><br>
+					<input type="text" name="name" placeholder="your first name" class="half"/>
+					<input type="text" name="day" value="day4" style="display:none;" />
+					<input type="submit" value="Submit" id="submit" class="button half" />
+				</form>
+
+
+
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="/js/highlight/highlight.pack.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+
+			var set = {
+				x: 50,
+				y: 50,
+				w: 75,
+				h: 100
+			}
+
+			var gui1 = new dat.GUI({ autoPlace: false });			// create dat gui
+			gui1.domElement.childNodes[1].style.display ="none";	// hide "close" button
+			var slider1 = gui1.add(set, 'x', 0, 500).step(1);;			// create slider
+			slider1.onFinishChange(function(val){
+				var src = "editor.html?ex=js1&val1="+ Math.floor(val) +'&val2='+set.y+'&val3='+set.w+'&val4='+set.h;
+				$('#e1').attr( 'src',src );
+			});
+			var slider2 = gui1.add(set, 'y', 0, 500).step(1);;			// create slider
+			slider2.onFinishChange(function(val){
+				var src = "editor.html?ex=js1&val1="+set.x+"&val2="+Math.floor(val) +'&val3='+set.w+'&val4='+set.h;
+				$('#e1').attr( 'src',src );
+			});
+			var slider3 = gui1.add(set, 'w', 0, 500).step(1);;			// create slider
+			slider3.onFinishChange(function(val){
+				var src = "editor.html?ex=js1&val1="+set.x+'&val2='+set.y+'&val3='+Math.floor(val) +'&val4='+set.h;
+				$('#e1').attr( 'src',src );
+			});
+			var slider4 = gui1.add(set, 'h', 0, 500).step(1);;			// create slider
+			slider4.onFinishChange(function(val){
+				var src = "editor.html?ex=js1&val1="+set.x+'&val2='+set.y+'&val3='+set.w+'&val4='+Math.floor(val) ;
+				$('#e1').attr( 'src',src );
+			});
+
+			var ele1 = document.getElementById('gui1');				// add gui to element on page
+			ele1.appendChild(gui1.domElement);
+
+		</script>
+
+	</body>
+</html>

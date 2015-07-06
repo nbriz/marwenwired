@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+		
+		function box( x,y, size, rotate ){
+				
+			var x = x || 50;
+			var y = y || 50;
+			var w = size || 50;
+			var h = size || 50;
+			var r = rotate || 0;
+				r = Math.degreesToRads( r );
+			
+			ctx.save();
+			var translateX = x;
+			var translateY = y;
+			ctx.translate(translateX,translateY);
+			ctx.rotate(r);
+			ctx.fillRect( 0-w/2, 0-h/2, w, h );
+			ctx.restore();
+		}
+
+		box( 100,100, 50, 45 );
+		
+		ctx.font = 'bold 40px Arial';
+		ctx.strokeText("hello there", 200,100);
+
+	</script>
+</body>
+</html>

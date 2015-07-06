@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+
+
+		<section id="main">
+			<div class="container">
+
+				<h1>demystifying the “Cloud” </h1>
+				<br><br><br>
+
+				
+				<a href="https://youtu.be/XZmGGAbHqa0?t=2m5s" target="_blank"><img src="images/datacenter.jpg" class="rwd"></a>
+				<br><br>
+				this is what a "cloud" really looks like
+
+
+				<br><br><br><br><br><br>
+
+				<h2> FTP ( file transfer protocol )</h2>
+				<br><br><br>
+
+				<p>
+					FTP, or File Transfer Protocal, is the protocal used to transfer files from one host (usually your computer) to another host (usually a server somewhere else).
+					<br><br>
+					applications called FTP Clients provide user-friendly interfaces for connecting to a server and transfering files with FTP, these are like windows into different folders on different servers which you have credentials for.
+					<br><br>
+					we'll be using <a href="https://cyberduck.io/" target="_blank">Cyberduck</a>, this is an app (FTP Client) which will funciton like a 'window' into a sever (which is a computer that hosts websites so other folks can access them on their browsers). 
+				</p>
+
+				<br><br><br><br><br><br>
+
+				<h2> connecting to the Marwen Wired Server </h2>
+				<br><br><br>
+
+				<p>
+					Most people host their websites on "shared servers." In this class we'll be sharing the Marwen Wired servers to host our projects.
+					<br><br>
+					to access your shared space on the marwen server you'll first need to launch "Cyberduck".
+				</p>
+
+				<br><br>
+
+				<img src="images/cyberduck1.gif" class="rwd">
+
+				<p>
+					<br><br>
+					when Cyberduck is open click on the <code class="k">+</code> symbol to create a new shortcut ( if you want to delete an old shortcut you can click <cod class="k">-</cod> and if you want to edit an existing shortcut use the pencil icon )
+				</p>
+
+				<br><br>
+
+				<img src="images/cyberduck2.png" class="rwd">
+				<br><br>
+
+				<p>
+					when you click the <code class="k">+</code> symbol to create a new shortcut a window like the one above should appear. in the drop down list choose the <b>SFTP (SSH File Transfer Protocol)</b> option, this is FTP with an added layer of security. Then under "nickname" write down anything you like ( so long as it helps you remember what the shortcut is for ). under "server" type <b>marwenwired.com</b> ( that's our class server ). then under username type in your <b>first name</b> all lower case.
+				</p>
+
+
+				<img src="images/cyberduck2.gif" class="rwd">
+				<br><br>
+
+				<p>
+					when you're finished typing in all your settings, just exit out of that window. you should now see your newly created shortcut in your cyberduck bookmarks list.
+					<br><br>
+					when you double click your new shortcut you should see a folder called <b>www</b>, that's the folder where all of your projects are going to go, double click it and drag your files into it. 
+				</p>
+
+				<br><br>
+
+				<video src="videos/cyberduck-demo.mp4" autoplay loop muted class="rwd"></video>
+
+				<br><br>
+
+				<p>
+					you should now be able to visit your domain in a browser and the contents of your www folder should appear :)
+				</p>
+
+				
+				<br><br><br><br>
+
+				<h2> the big idea </h2><br><br>
+
+				<p>
+					when someone says "i'm going to store my data on the cloud", what are they talking about? what is "the cloud" made of?
+				</p>
+
+				<br><br>
+				<form action="/answer" method="post" enctype="multipart/form-data" >
+					<textarea name="answer"></textarea><br>
+					<input type="text" name="name" placeholder="your first name" class="half"/>
+					<input type="text" name="day" value="day3" style="display:none;" />
+					<input type="submit" value="Submit" id="submit" class="button half" />
+				</form>
+
+
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool net art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+		function circle( x, y, radius ){
+			ctx.fillStyle = "rgba(150,255,100,0.1)";
+			ctx.beginPath();
+			ctx.arc( x, y, radius, PI*0, PI*2 );
+			ctx.stroke();
+			ctx.fill();
+			ctx.closePath(); 
+		}
+		
+		var x = WIDTH/2;
+		var y = HEIGHT/2;
+		
+		function draw(){
+			
+			var time = Date.now()/1000;
+			 x += Perlin.noise(time, WIDTH) * 1.2;
+			 y += Perlin.noise(time, HEIGHT) * 2.3;
+			 
+			circle(x,y,50);
+
+		}
+		setInterval( draw, 1000/60 );
+	</script>
+</body>
+</html>

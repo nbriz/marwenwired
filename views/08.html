@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+		<link rel="stylesheet" href="/js/highlight/styles/monokai_sublime.css">
+		<style>
+
+			/*highlight overrides*/
+
+			.hljs-keyword { color: #66D9EF; }
+			.hljs-tag .hljs-value,{ color: #E6DB74; }
+			.hljs-function { color: #fff; }
+			.hljs-built_in{ color: #66D9EF; }
+
+			.c select { color: black;}
+
+		</style>
+		
+
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+
+		
+		<iframe src="canvascheatsheet.html" id="cheatsheet"></iframe>
+
+		<section id="main">
+			<div class="container">
+
+				<h1>Coding Nature</h1>
+				<br><br>
+				<br>
+				<iframe src="editor.html?ex=js7" class="eframe" id="e1" style="height:680px"></iframe>
+				<br><br>
+
+				<p>
+					above is the example for a few days ago for how to make a square bounce around the screen. we say “bounce” because the way the square gets redrawn from frame to frame makes it appear as though it’s bouncing, but nothing is really “bouncing”, it’s just being drawn at a different place each time based on an algorithm we wrote which starts by saying <coke class="k">ctx.clearRect(0,0,WIDTH,HEIGHT);</coke> which means erase the last frame so we get a clean screen, then <coke class="k">x += dx;</coke> which means increase the x value by some value dx and do the same for y, then we list out a few decisions the algorithm needs to make using conditional statements, we say <coke class="k">if( y > HEIGHT)</coke> which means if the y value goes beyond the full height of the screen then do <coke class="k">dy = -dy;</coke> which means invert the direction that y is incrementing ( so it goes the other way ) then we did more or less the same thing to check and make sure the square doesn't go past any of the other boundaries… and voula, we have the illusion of “bouncing”!
+					<br><br>
+					artists and computer scientists have been creating algorithms like these to model the behaviors of the natural world into the digital world for years. some of the more popular algorithms have been included as objects in the <a href="js/wired.js" target="_blank">wired.js</a> library. below are some examples for how to implement these in our projects.
+				</p>
+
+				<br><br><br>
+
+				<h2> Natural Noise </h2>
+				<br><br>
+
+				<p>
+					let’s make some Artificial Intelligence! let’s create a variable which is a new image object and lets create a couple more variables for it’s starting x, y coordinates ( setting it to start at the middle of the screen ). now to make it seem like it’s alive ( seemingly making decisions on it’s own about where to move ) we need to change it’s x and y values inside of a draw loop ( so that they change each frame ), we can use our <code class="k">Math.random()</code> method with a little arithmetic to make it seem alive.
+				</p>
+				<br>
+
+				<iframe src="editor.html?ex=js20" class="eframe restart" id="e2" style="height:480px"></iframe>
+				<br><br>
+
+				<p>
+					now the problem here is that it’s a little too random, our emoji looks way too jittery, we want this to seem more “natural” kind of like the way a fly buzzes around a room. this can be a little frustrating, that’s how Ken Perlin, a computer graphics artist, felt while trying to develop computer graphics algorithms for the original Tron movie back in the 80’s. In order to solve this problem he programmed his own, more natural, random algorithm.  Today his “natural” random algorithm is used by artists all over the world, and we call it <a href="https://en.wikipedia.org/wiki/Perlin_noise" target="_blank">Perlin Noise</a>! the wired.js library has a built in <code class="k">Perlin.noise();</code> method which you can use to implement it. let’s modify our last example to use perlin noise instead of randomness.
+				</p>
+				<br>
+
+				<iframe src="editor.html?ex=js21" class="eframe restart" id="e3" style="height:490px"></iframe>
+				<br><br><br><br>
+
+				<h2> particle physics </h2>
+				<br><br>
+
+				<p>
+					we can simulate some simple physics ( gravity, velocity, friction ) by creating a <b>Particle</b> object. a particle is just a point in space that has properties like mass and velocity which enable it to behave as though it’s in physical space. to create a particle create a variable and set it equal to <code class="k">new Particle( x, y, speed, direction, gravity );</code> where x and y are the coordinate values, and where speed, direction and gravity are all numbers. then draw an image or custom shape inside of a draw loop as usual, but instead of giving it a hard coded x and y value, pass it the particle’s x and y value. also, in the draw loop, run the particle's <code class="k">.update()</code> method. restart the example below to see how the particle moves the emoji image as per some simple physics. 
+				</p><br>
+
+				<iframe src="editor.html?ex=js30" class="eframe restart" id="e4" style="height:630px"></iframe>
+				<br><br>
+
+				<p>
+					you’ll notice the particle drags our image down as if gravity was pulling it and then it just disappears below our canvas. we could add a conditional statement that checks to see if our particle has fallen below our canvas <code class="k">if(p.y > HEIGHT)</code>, and if so reset it’s x and y values back to the beginning. we could also add a couple more lines to this conditional statement to spice it up a bit. we can use the <code class="k">p.setHeading()</code> to change the particle’s direction when it resets ( i’m passing it a semi-random value each time ) and also the <code class="k">p.setSpeed()</code> to change it’s speed to something slightly different each time. 
+				</p><br>
+
+				<iframe src="editor.html?ex=js23" class="eframe" id="e5" style="height:635px"></iframe>
+				<br><br>
+
+				<p>
+					or, you could instead add some <b>bounce</b> to the particle by adding <code class="k">p.bounce = -0.7</code> after you create your particle. then in the draw loop check and see the particle has fallen below the canvas and if so set the y position of the particle equal to the HEIGHT - the size of the image, and then multiply and set its velocity in the y direction ( <b>.vy</b> ) by its bounce property. reset the example below to see it in action.
+				</p><br>
+
+				<iframe src="editor.html?ex=js22" class="eframe restart" id="e45" style="height:630px"></iframe>
+				<br><br><br><br>
+
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<div id="gui1" class="gui"></div>
+				    </div>
+				    <div class="column half"> 
+				    	<p>
+				    		we can use a for loop to create lots of particles and likewise use a for loop in our draw to update all those particles and draw an image or shape for each one. once you’ve got lots of particles going we usually call this a <b>particle system</b> or a <b>particle emitter</b>. 
+				    	</p>
+				    </div>
+				</div><br>
+
+				<iframe src="editor.html?ex=js24&val1=100&val2=0.1&val3=1.6&val4=4" class="eframe" id="e6" style="height:730px"></iframe>
+				<br><br><br><br>
+
+				<br><br><br>
+
+				<h2> Autonomous Agents </h2>
+				<br><br>
+
+				<p>
+					another special object in the wired.js library is the <b>Boid</b> object. just like the Particle, a Boid is just a point in space that moves based on some physical logic, but rather than simply falling to the ground like the particles, a boid behaves more like an animal ( like fishes swimming or birds flying ). you can create a new boid object by setting some variable equal to <code class="k">new Boid( x, y );</code> where x and y are coordinates. then in a draw loop run <code class="k">b.move();</code> which will update the boids position each frame ( just like p.update() updates the particle’s position ). then apply the boid’s x and y properties to the x,y coordinates of some image or custom shape. our image/shape will be moving around but rather than bouncing off the walls like our first example, it will turn around and avoid them, this gives the illusion that the boid is making decisions about where to fly.
+				</p><br>
+
+				<iframe src="editor.html?ex=js25" class="eframe" id="e7" style="height:540px"></iframe>
+				<br><br>
+
+
+				<p>
+					when you call 00 what you’re doing is essentially just avoiding the edges of the canvas, but you can make your boid avoid other things too by using the <code class="k">b.avoid( x, y );</code> method. in the example below we pass the mouse's coordinates into the <b> avoid </b> method, try moving your mouse close to the bee and see what happens.
+				</p><br>
+
+				<iframe src="editor.html?ex=js26" class="eframe" id="e8" style="height:540px"></iframe>
+				<br><br>
+
+
+				<p>
+					the opposite of <b>avoid</b> is <b>seek</b>, you can use the <code class="k">b.seek( x, y );</code> method if you want your boid to go after something. in the example below rather than avoiding the mouse we’re seeking it  out.
+				</p><br>
+
+				<iframe src="editor.html?ex=js27" class="eframe" id="e9" style="height:540px"></iframe>
+				<br><br>
+
+				<p>
+					if we create lots of boids using a for loop, we can get them to react to each other the way a school of fish or flock of birds would by substituting the <b>.move()</b> method in the draw loop with <code class="k">b.flock( boids );</code> and passing it the array of boids as a parameter. 
+				</p><br>
+
+				<iframe src="editor.html?ex=js28" class="eframe" id="e10" style="height:745px"></iframe>
+				<br><br>
+
+				<p>
+					<a href="editor.html?ex=js29" target="_blank">here’s a variation</a> on the example above which rotates the bee emoji based on the direction it’s moving int.
+				</p><br><br>
+
+
+				<br><br><br><br>
+
+<!-- 				<h2> the big idea </h2><br><br>
+
+				<p>
+					...
+				</p>
+
+				<br><br>
+				<form action="/answer" method="post" enctype="multipart/form-data" >
+					<textarea name="answer"></textarea><br>
+					<input type="text" name="name" placeholder="your first name" class="half"/>
+					<input type="text" name="day" value="day8" style="display:none;" />
+					<input type="submit" value="Submit" id="submit" class="button half" />
+				</form>
+ -->
+
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="/js/highlight/highlight.pack.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+
+
+			var set = {
+				loop: 100,
+				gravity: 0.1,
+				heading: 1.6,
+				speed: 4
+			}
+
+			function getString(){
+				return "editor.html?ex=js24&val1="+Math.floor(set.loop)
+				+"&val2="+Math.round(set.gravity*10)/10
+				+"&val3="+Math.round(set.heading*10)/10
+				+"&val4="+Math.floor(set.speed);
+			}
+			
+			var gui1 = new dat.GUI({ autoPlace: false });			// create dat gui
+			gui1.domElement.childNodes[1].style.display ="none";	// hide "close" button
+			
+			var loop = gui1.add(set, 'loop', 1, 100).name('amount');					
+			loop.onFinishChange(function(val){   $('#e6').attr('src',getString());   });
+			
+			var gravity = gui1.add(set, 'gravity', 0.01, 0.2);					
+			gravity.onFinishChange(function(val){   $('#e6').attr('src',getString());   });
+
+			var heading = gui1.add(set, 'heading', 0.1, 2.0);					
+			heading.onFinishChange(function(val){   $('#e6').attr('src',getString());   });
+
+			var speed = gui1.add(set, 'speed', 1, 8);					
+			speed.onFinishChange(function(val){   $('#e6').attr('src',getString());   });
+
+			var ele1 = document.getElementById('gui1');				// add gui to element on page
+			ele1.appendChild(gui1.domElement);
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+		<link rel="stylesheet" href="/js/highlight/styles/monokai_sublime.css">
+		<style>
+
+			/*highlight overrides*/
+
+			.hljs-keyword { color: #66D9EF; }
+			.hljs-tag .hljs-value,{ color: #E6DB74; }
+			.hljs-function { color: #fff; }
+
+			.c select { color: black;}
+
+		</style>
+		
+
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+
+		
+		<iframe src="canvascheatsheet.html" id="cheatsheet"></iframe>
+
+		<section id="main">
+			<div class="container">
+
+				<h1>Interaction + Animation </h1>
+				<br><br>
+				<br>
+
+				<h2> drawing text </h2>
+				<br><br>
+
+				<p>
+					before we jump into interaction and animation let’s learn a few more functions and properties built into our drawing context ( the <code class="k">ctx</code> object ). to draw text we can use the <code class="k">ctx.fillText</code> and <code class="k">ctx.strokeText</code> methods, these take 3 arguments ( "the text you want to type", x position, y position ). there is also a <code class="k">ctx.font</code> property which you can set equal to a string listing the properties of the font as demonstrated below.
+				</p>
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<div id="gui1" class="gui"></div>
+				    </div>
+				    <div class="column half"> 
+				    	<p>
+				    		use the gui to the left to change the <code class="k">ctx.font</code> value, or edit the code in the editor below yourself.
+				    	</p>
+				    </div>
+				</div><br>
+	
+				<iframe src="editor.html?ex=js4&val1=italic&val2=&val3=40&val4=Calibri" class="eframe" id="e1"></iframe>
+
+				<br><br><br>
+				<br><br><br>
+
+				<h2> Interactivity </h2>
+				<br><br>
+
+				<a href="https://www.youtube.com/watch?v=Wq9QtEyO0Vc" target="_blank">
+					<img src="images/levin.jpg" class="rwd">
+				</a><br><br>
+				<div class="tiny center"> Golan Levin</div><br><br>
+
+				<a href="https://www.youtube.com/watch?v=Q4ocIIBTqLs" target="_blank">
+					<img src="images/lazortag.jpg" class="rwd">
+				</a><br>
+				<div class="tiny center"> James Powderly and F.A.T. Labs </div><br><br>
+
+				<a href="http://www.pixlpa.com/flow/" target="_blank">
+					<img src="images/flow.png" class="rwd">
+				</a>
+				<br><div class="tiny center"> Flow by Andrw Benson </div><br><br>
+
+				<p>
+					two key components we need to make our rectangles and texts interactive are <b>inputs</b> and <b>loops</b>. there are lots of different kinds of inputs which can be used to interact with a web art piece, the typical input devices that come with most computers are keyboards, mouse, camera and microphone. we’ll get started by using the mouse. the second component, loops, is another very important concept in programming, we’ll be coming back to loops a few times this semester. today we’ll be using a special kind of loop called an interval. an interval takes a block of code and repeats it forever at a designated speed. think of it like a metronome or the second hand on a clock, it ticks at a constant rate forever.
+					<br><br>
+				</p>
+
+				<img src="images/js3_diagram.png" class="rwd"><br><br>
+				<p>
+					before we can set our interval we need to organize our code in a custom function. up until now we’ve used pre defined functions built into our drawing context ( like <code class="k">ctx.fillRect();</code> ) but we can also create our own custom functions by organizing lines of code into special function blocks. the first thing we type is the keyword <code class="k">function</code>, this means we’re about to declare a new function ( similar to the way we type “var” when we’re going to declare a new variable ). then we name the function whatever we want, just like we do our variables, so long as we add parentheses <code class="k">()</code> at the end of the name. then between the <code class="k">{</code> and the <code class="k">}</code> we add our instructions.     
+				</p>
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		create a function called <b>draw</b> and try putting a few lines of code inside of it like this. if you don’t see anything on your screen that’s ok, now that our code is wrapped inside a function we need to call the function like this <code class="k">draw();</code> in order to execute the code inside of it.    
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+function draw(){
+	ctx.font = "40px Arial";
+	ctx.fillText( ":-)", 50, 100 );
+}
+// then run it
+draw();
+
+</code></pre>
+				    </div>
+				</div><br><br>
+
+
+				<br><br>
+				<h2>Interval Loop + Mouse variables</h2>
+				<br><br>
+
+				<p>
+					now that we’ve got our code inside of a named function ( in our example the name is “draw” ) we can run that function as many times as we want simply by re-typing draw over and over again. but what if we want draw to run forever and a specific speed? that’s where a special function called <code class="k">setInterval( );</code> comes in handy, it takes two arguments, first the name of the function we want to loop and second how fast we want to loop it ( this is an integer written in milliseconds )
+					<br><br>
+					if we put a line of code in our looping draw function which does the same thing each time we won’t notice that the function is looping. but if we replace some of the values with variables that change every once in a while then it comes to life! try using the variables <code class="k">mouseX</code> and <code class="k">mouseY</code> for the x and y coordinates of something in your draw loop. hover over the example below to see it in action.
+				</p>
+				<br><br>
+				
+				<iframe src="editor.html?ex=js5" class="eframe" id="e1" style="height:350px"></iframe>
+
+				<br><br><br><br>
+
+				<br><br>
+				<h2>drawing images</h2>
+				<br><br>
+
+				<p>
+					the drawing context ( our ctx object ) also has a method for drawing images called <code class="k">ctx.drawImage()</code> which takes three arguments first <b>an image</b> second the <b>x</b> coordinate and third the <b>y</b> coordinate. x,y can be hard coded numbers or variables like mouseX and mouseY, but the image parameter needs to be a special image object. there's all kinds of special objects we can create and assigne to variables using the <code class="k">new</code> keyword. to create a new image we declare a new variable and assign it a new image object like this: <code class="k">var cat = new Image();</code> then on the next line we can set our new image object's <b>.src</b> property equal to a path to a local image file like this: <code class="k">cat.src = "images/cat.jpg";</code>
+				</p>
+				<br><br>
+				
+				<iframe src="editor.html?ex=js6" class="eframe" id="e1" style="height:450px"></iframe>
+
+				<br><br><br><br>
+
+
+				<h2>Animation</h2>
+				<br><br>
+
+				<p>
+					animation is similar to interactivity in that it also needs a draw loop but instead of using input variables with values that change each frame ( like mouseX and mouseY ) we’ll create our own variables that change based on our own programmed logic. 
+					<br><br>
+					this is our first step into writing algorithms, using a key programming concept known as <b>conditional statements</b> we’ll write an algorithm that bounces a square around a screen forever ( regardless of how big or small the screen is )
+				</p>
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 0:</b> we'll start by creating an empty draw function and a <code class="k">setInterval()</code> that is set to loop the draw function 60 times every second ( ie. 1 second or 1000 miliseconds divided by 60 )
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+function draw(){
+
+}
+
+setInterval( draw, 1000/60 );
+
+</code></pre>
+				    </div>
+				</div><br><br>
+
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 1:</b> next we'll create a couple of variables ( x and y ) above our draw function and set them both to 0. then inside our draw function lets create a square using the <code class="k">ctx.fillRect()</code> method, taking our new <b>x</b> and <b>y</b> variables as the x,y parameters and then we'll type in 20 for both the width and height parameters.
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+var x <span style="color:#F92672">=</span> 0;
+var y <span style="color:#F92672">=</span> 0;
+function draw(){
+	ctx.fillRect( x, y, 20, 20 );
+}
+
+setInterval( draw, 1000/60 );
+
+</code></pre>
+				    </div>
+				</div><br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 2:</b> next we'll create a couple new variables called <b>dx</b> and <b>dy</b>, these will be the number we want to increment our position by in each frame, we'll start by setting both to 1, but we can make this bigger if we want to speed up our movement. then in our <b>draw</b> function ( above the ctx.fillRect ) we'll add <code class="k">x += dx;</code> which increments our x value by the value of dx each frame ( this means each animation frame the value of x will go up by 1 ) and likewise add <code class="k">y += dy;</code> below that to do the same for the y value;
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+var x <span style="color:#F92672">=</span> 0;
+var y <span style="color:#F92672">=</span> 0;
+var dx <span style="color:#F92672">=</span> 1;
+var dy <span style="color:#F92672">=</span> 1;
+
+function draw(){
+	x <span style="color:#F92672">+=</span> dx;
+	y <span style="color:#F92672">+=</span> dy;
+	ctx.fillRect( x, y, 20, 20 );
+}
+
+setInterval( draw, 1000/60 );
+
+</code></pre>
+				    </div>
+				</div><br><br>
+
+
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 3:</b> you’ll notice that as the square moves across the screen it leaves a streak behind it, this is because each frame simply draws over the last one. if we want to erase whatever was on the screen in the last frame before drawing the new frame add <code class="k">ctx.clearRect(0,0,WIDTH,HEIGHT);</code> to the top of your draw function so that the entire canvas clears before drawing the next frame. 
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+var x <span style="color:#F92672">=</span> 0;
+var y <span style="color:#F92672">=</span> 0;
+var dx <span style="color:#F92672">=</span> 1;
+var dy <span style="color:#F92672">=</span> 1;
+
+function draw(){
+	ctx.clearRect(0,0,WIDTH,HEIGHT);
+	x <span style="color:#F92672">+=</span> dx;
+	y <span style="color:#F92672">+=</span> dy;
+	ctx.fillRect( x, y, 20, 20 );
+}
+
+setInterval( draw, 1000/60 );
+
+</code></pre>
+				    </div>
+				</div><br><br>
+
+
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 4:</b> you’ll notice that when the square reaches the bottom of the screen it’s gone ( doesn’t bounce back ), in order to get it to bounce we need to create a <b>conditional statement</b>. conditionals start with the special word “if” followed by a pair of parentheses, within which is a “condition” or a question, and then a pair of curly brackets which contains the code that should run “if” the condition is met ( ie. if its true ), the syntax loox like this <code class="k">if ( condition ) { code }</code>. to our code on the right we’ve added the following condition: if the current y value ( ie. y position of the cube ) is greater than the total height of our canvas, then reverse the incrementing value ( ie. our dy ) so that our cube now goes up instead of down. 
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+var x <span style="color:#F92672">=</span> 0;
+var y <span style="color:#F92672">=</span> 0;
+var dx <span style="color:#F92672">=</span> 1;
+var dy <span style="color:#F92672">=</span> 1;
+
+function draw(){
+	ctx.clearRect(0,0,WIDTH,HEIGHT);
+	x <span style="color:#F92672">+=</span> dx;
+	y <span style="color:#F92672">+=</span> dy;
+
+	if( y <span style="color:#F92672">></span> HEIGHT ) {
+		dy <span style="color:#F92672">=</span> -dy;
+	}
+
+	ctx.fillRect( x, y, 20, 20 );
+}
+
+setInterval( draw, 1000/60 );
+
+</code></pre>
+				    </div>
+				</div><br><br>
+
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p>
+				    		<b>step 5:</b>  so now our cube bounces when it hits the bottom of the screen but when it reaches the top it flies off the screen again. to recreate the logic in the other direction we need to create a second conditional statement which reverses the direction of our y increment <b>dy <span style="color:#F92672">=</span> -dy;</b> if our y position goes below 0 ( ie. if it’s above the top of our screen )
+				    	</p>
+				    </div>
+				    <div class="column half"> 
+<pre><code class="javascript">
+var x <span style="color:#F92672">=</span> 0;
+var y <span style="color:#F92672">=</span> 0;
+var dx <span style="color:#F92672">=</span> 1;
+var dy <span style="color:#F92672">=</span> 1;
+
+function draw(){
+	ctx.clearRect(0,0,WIDTH,HEIGHT);
+	x <span style="color:#F92672">+=</span> dx;
+	y <span style="color:#F92672">+=</span> dy;
+
+	if( y <span style="color:#F92672">></span> HEIGHT ) {
+		dy <span style="color:#F92672">=</span> -dy;
+	}
+	if( y <span style="color:#F92672"><</span> 0 ){
+		dy <span style="color:#F92672">=</span> -dy;
+	}
+
+	ctx.fillRect( x, y, 20, 20 );
+}
+
+setInterval( draw, 1000/60 );
+
+</code></pre>
+				    </div>
+				</div><br><br>
+
+				<p>
+		    		<b>step 6:</b>  lastly we’ll recreate the same logic for the x position along the x axis, and now we’ve got a square that increments its position by 1 each new frame, but “if” it reaches any of the four edges of the screen it reverses the direction of the incrementing value… which is the algorithm for creating a bouncing square 
+		    	</p>
+
+		    	<br><br>
+
+				<iframe src="editor.html?ex=js7" class="eframe" id="e1" style="height:680px"></iframe>
+
+
+				<!-- writing a program is a lot like writing a recipe, you write your ingredients on top and your instructions below, and you follow your instructions from top to bottom. in a program your “variables” are your ingredients and your “functions” are groups of instructions.  -->
+				
+
+				<br><br><br><br>
+
+				<h2> the big idea </h2><br><br>
+
+				<p>
+					photos and movies are the same each time you revisit them, but when we create interactive and generative animations on the web the experience has the potential to be unique and different each time we visit the piece ( even though the code never changes ). this is possible by using inputs ( like the mouse ) that let the audience interact with the drawing as well as programming concepts like loops and conditional statements. knowing what you know now, what other kinds of interactive and generative animations could you come up with using your imagination ( besides the ones we programmed together in class )?
+				</p>
+
+				<br><br>
+				<form action="/answer" method="post" enctype="multipart/form-data" >
+					<textarea name="answer"></textarea><br>
+					<input type="text" name="name" placeholder="your first name" class="half"/>
+					<input type="text" name="day" value="day5" style="display:none;" />
+					<input type="submit" value="Submit" id="submit" class="button half" />
+				</form>
+
+
+
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="/js/highlight/highlight.pack.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+
+			var set = {
+				italic: true,
+				bold: false,
+				size: 40,
+				type: "Calibri"
+			}
+
+			var gui1 = new dat.GUI({ autoPlace: false });			// create dat gui
+			gui1.domElement.childNodes[1].style.display ="none";	// hide "close" button
+			var italic = gui1.add(set, 'italic');					
+			italic.onFinishChange(function(val){
+				var italic = (set.italic) ? "italic" : "";
+				var bold = (set.bold) ? "bold" : "";
+				var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+set.size+"&val4="+set.type;
+				$('#e1').attr( 'src',src );
+			});
+			var bold = gui1.add(set, 'bold');			
+			bold.onFinishChange(function(val){
+				var italic = (set.italic) ? "italic" : "";
+				var bold = (set.bold) ? "bold" : "";
+				var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+set.size+"&val4="+set.type;
+				$('#e1').attr( 'src',src );
+			});
+			var size = gui1.add(set, 'size', 1, 100).step(1);			
+			size.onFinishChange(function(val){
+				var italic = (set.italic) ? "italic" : "";
+				var bold = (set.bold) ? "bold" : "";
+				var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+val+"&val4="+set.type;
+				$('#e1').attr( 'src',src );
+			});
+			var type = gui1.add(set, 'type', ["Calibri","Impact","Arial","Times","Verdana","Courier"]);			
+			type.onFinishChange(function(val){
+				var italic = (set.italic) ? "italic" : "";
+				var bold = (set.bold) ? "bold" : "";
+				set.type = val;
+				var src = "editor.html?ex=js4&val1="+italic+"&val2="+bold+"&val3="+set.size+"&val4="+set.type;
+				$('#e1').attr( 'src',src );
+			});
+
+			var ele1 = document.getElementById('gui1');				// add gui to element on page
+			ele1.appendChild(gui1.domElement);
+
+		</script>
+
+	</body>
+</html>

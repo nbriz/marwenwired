@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+		<style>
+			.example {
+				width:400px;
+				height:300px;
+				background-color: #5fd4e9;
+				margin:30px;
+				padding:10px;
+				border-width: 2px;
+				border-color: #f92772;
+				border-style: solid;
+			}
+			.colorpicker {
+				background-image: url('images/colorpicker.gif');
+				width:557px;height:413px;
+			}
+			.colorpicker:hover {
+				background-image: url('images/colorpickerValues.gif');
+			}
+
+		</style>
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+
+
+		<section id="main">
+			<div class="container">
+
+				<h1>CSS: Form Follows Function; </h1>
+				<br><br><br>
+
+				<iframe width="848" height="477" src="https://www.youtube.com/embed/6akcfoJ05Aw" frameborder="0" allowfullscreen class="rwd"></iframe>
+
+
+				<br>
+				<br>
+				<br>
+
+	
+				<div class="row clearfix">
+				    <div class="column half"> 
+						<img src="images/nocss.jpg" class="rwd" style="border:1px solid"><br>
+						<p class="center">webpage without CSS</p>
+				    </div>
+				    <div class="column half"> 
+				    	<img src="images/yescss.jpg" class="rwd" style="border:1px solid"><br>
+				    	<p class="center">same webpage, with CSS</p>
+				    </div>
+				</div>
+
+				<br><br><br><br>
+				
+				<div class="row clearfix">
+				    <div class="column third"> 
+						<p> <b>CSS</b> ( or Cascading Style Sheets ) are rules organized in blocks of code that specify how different elements should appear on your page. There are three different ways to add CSS to your page ( watch <a href="http://www.dontfeartheinternet.com/css/don%E2%80%99t-fear-starting-from-scratch-2" target="_blank">this video</a> to learn them all ) but for the purposes of this class we'll be using <code>&lt;style&gt;</code> tags, inside our head</p>
+				    </div>
+				    <div class="column two-thirds"> 
+				    	<img src="images/diagram5.png" class="rwd">
+				    </div>
+				</div>
+
+				<br><br><br>
+
+				
+				<br>
+				<h2> how to CSS </h2>
+				<br>
+				<br><br>
+
+				<img src="images/diagram4.png" class="rwd"><br><br>
+				
+				<div class="row clearfix">
+				    <div class="column half"> 
+				    	<p> 
+				    		a CSS block contains two parts, a <b>selector</b> which specifies which element(s) the rules will be applied to and a <code>{</code> <b>declaration</b> <code>}</code>, surounded by curly brackets, which specifies <i>how</i> the element should be styled.
+						</p>
+				    </div>
+				    <div class="column half"> 
+				    	<p> 
+				    		the declaration is split in two parts, the <b>property</b> which indicates the apsect of the element you want to change ( ex: color, font, width, border ) and the <b>value</b> which is the settings you want to use for that specific property.
+						</p>
+				    </div>
+				</div>
+
+				<br><br><br>
+
+				<img src="images/diagram6.png" class="rwd"><br><br>
+
+				<p>
+					in the example above all the <code>&lt;a&gt;</code> tags ( or link elements ) on the page are being changed. rather than the default blue underlined text, they will now all be purple ( <code>color: #ff00ff</code> ) with no underline ( <code>text-decoration: none;</code> ).
+					<br><br>
+					elements can have multiple CSS states, in the example above we've also created a <b>hover</b> state for our links, so everytime the mouse hovers over a link the color changes to <code>#cc3399</code>
+				</p>
+
+				<br><br><br>
+
+				<div class="row clearfix">
+				    <div class="column third"> 
+						<p>
+							sometimes you want to be able to target specific elements on your page ( rather than effecting all the elements of a specific type ), you can do this by creating a <b>class</b> ( <code>.</code> followed by a <code>name</code> ) and then assigning that class to an element using the html class attribute.
+						</p>
+				    </div>
+				    <div class="column two-thirds"> 
+				    	<img src="images/diagram7.png" class="rwd">
+				    </div>
+				</div>
+
+				<br><br><br>
+
+				<br>
+				<h2> understanding color </h2>
+				<br>
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column third"> 
+						<p> there are only so many colors that have names ( green, purple, pink ). if you want to assigne a specific color in your CSS you need to use numerical values. <br><br>These come in different forms the most common is <b>HEX</b> which looks like <code>color: #00ff33;</code>,<br> <br> or <b>RGB</b> which looks like <code>color: rgb( 0, 255, 204 );</code></p>
+				    </div>
+				    <div class="column two-thirds"> 
+				    	<div class="colorpicker"></div>
+				    </div>
+				</div>
+				<br><br><br><br>
+
+				<br>
+				<h2> understanding the box </h2><br><br>
+				<h4> ( block elements vs inline elements )</h4>
+				<br>
+				<br><br>
+
+				<div class="row clearfix">
+				    <div class="column two-thirds"> 
+						<img src="images/boxmodel1.png" class="rwd"><br>
+						<img src="images/boxmodel2.png" class="rwd">
+				    </div>
+				    <div class="column third"> 
+				    	<p>
+				    		<br><br>
+							each element on your page is like a container ( literally a box ). some of these are display <b>block</b>, which means they are as wide as the full page by default, forcing a line break between the element below it ( ex: <code>&lt;h1&gt; &lt;p&gt; &lt;div&gt; </code> ). others are display <b>inline</b> which are only ever as wide as their content by default ( ex: <code>&lt;a&gt; &lt;img&gt; &lt;span&gt; </code> )
+						</p>
+				    </div>
+				</div>
+				<br><br>
+				
+			<br><br>
+			<h2>CSS Positioning</h2>
+			<br><br>
+			<br><br>
+
+			<div class="row clearfix">
+			    <div class="column third"> 
+			    	<br><br>
+					<p>
+						by default the elements on the page appear in the order that they appear in your code, the way they are positioned is referred to as the “normal flow” of the document. Block elements ( ex: <code> &lt;div&gt;, &lt;p&gt;, &lt;h1&gt; </code>) flow vertically, stacked one after the other. Inline elements ( ex: <code> &lt;span&gt;, &lt;a&gt;, &lt;img&gt; </code>) flow horizontally ( left to right ) one next to the other. You can override this default flow by asigning CSS positioning to your elements.
+					</p>
+			    </div>
+			    <div class="column two-thirds"> 
+			    	<br><br><br>
+			    	<img src="images/position.png" class="rwd">
+			    </div>
+			</div>
+
+			<br><br>
+			<h2>More Fonts</h2>
+			<br><br>
+			<br><br>
+
+			<div class="row clearfix">
+			    <div class="column two-thirds"> 
+			    	<br><br>
+					<img src="images/fonts.png" class="rwd">
+			    </div>
+			    <div class="column third"> 
+			    	you can add custom fonts to your document by using the CSS <code>@font-face</code> rule, giving your font a custom name and specifying the url to the font file you want to use. 
+					keep in mind that not all font files work on all browsers though ( but otf tends to be the most cross-platform friendly ). <br>
+					<br>check out <a href="http://www.fontsquirrel.com/" target="_blank">font squirrel</a> for more font options.
+			    	
+			    </div>
+			</div>
+			<br><br><br>
+
+
+			<br><br>
+			<h2>a video css crash course</h2>
+			<br><br>
+			<br><br>
+			<iframe src="http://player.vimeo.com/video/27833342?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="780" height="439" frameborder="0"></iframe>
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="js/main.js"></script>
+
+	</body>
+</html>

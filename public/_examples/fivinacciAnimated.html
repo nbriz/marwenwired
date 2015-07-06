@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+		function circle( x, y, radius ){
+			ctx.fillStyle = "rgba(150,255,100,0.5)";
+			ctx.beginPath();
+			ctx.arc( x, y, radius, PI*0, PI*2 );
+			ctx.stroke();
+			ctx.fill();
+			ctx.closePath(); 
+		}
+
+		// Fibonacci Sequence
+		var f = [1,1,2,3,5,8,13,21,34,55,89,144];
+		
+		function draw(){
+			ctx.clearRect(0,0,WIDTH,HEIGHT);
+			for (var i = 0; i < f.length; i+=1) {
+				var x = i * (mouseX-WIDTH/2) + WIDTH/2;
+				var y = f[i] * (mouseY-HEIGHT/2)  +HEIGHT/2;
+				circle( x, y, f[i] );
+			};
+		}
+		setInterval( draw, 1000/60 );
+		
+			
+
+	</script>
+</body>
+</html>

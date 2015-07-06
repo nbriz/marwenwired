@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> marwen wired editor </title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="author" content="Nick Briz">
+	<link rel="icon" type="image/x-icon"  href="favicon.ico">
+
+	<link rel="stylesheet" href="js/codemirror/codemirror.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/editor-styles.css">
+
+	<script src="js/codemirror/codemirror.js"></script>
+	<script src="js/codemirror/mode/xml.js"></script>
+	<script src="js/codemirror/mode/javascript.js"></script>
+	<script src="js/codemirror/mode/css.js"></script>
+	<script src="js/codemirror/mode/htmlmixed.js"></script>
+	<script src="js/editor/rawinflate.js"></script>
+	<script src="js/editor/rawdeflate.js"></script>
+	<script src="js/editor/esprima.js"></script>
+
+</head>
+<body>
+
+	<div id="preview"></div>
+	<div id="editor"></div>
+
+	<div id="helper">
+		<div id="top"></div>
+		<div id="mid"></div>
+		<div id="bot"></div>
+	</div>
+
+	<div id="guide-line"></div>
+
+	<!-- // <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+	<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+	<script>
+
+
+		// GET URL PARAMETER
+		// via http://stackoverflow.com/questions/979975/how-to-get-the-value-from-url-parameter 
+		var QueryString = function () {
+		  var query_string = {};
+		  var query = window.location.search.substring(1);
+		  var vars = query.split("&");
+		  for (var i=0;i<vars.length;i++) {
+		    var pair = vars[i].split("=");
+		    if (typeof query_string[pair[0]] === "undefined") { query_string[pair[0]] = pair[1]; } 
+		    else if (typeof query_string[pair[0]] === "string") {
+		      var arr = [ query_string[pair[0]], pair[1] ];
+		      query_string[pair[0]] = arr;
+		    } else { query_string[pair[0]].push(pair[1]); }
+		  } return query_string;
+		} ();
+
+		var qs = QueryString; //alias
+
+
+		window.URL = window.URL || window.webkitURL;
+
+		// decode && encode snippets
+		var decode = function ( string ) { return RawDeflate.inflate( window.atob( string ) ); };
+		var encode = function ( string ) { return window.btoa( RawDeflate.deflate( string ) ); };
+
+
+
+
+		// code snippets
+
+		// var snippets = {
+		// 	'js1' : "s1F08XcOiQxwVcgoyc2x47KBUJw2GamJKUCa06YksyQn1U4hOT8/RyGxqETBRh8iAlSjD1Vkk5SfUglWXJxclFlQolBclGyrlFWsX55ZlJqil1WsZGejD5FCUgVicoJwckmFXlpmTk5QanKJhqGBDgxpWkNVwDWDeDb6ENuAtoOcCgA="
+		// }
+
+		var basic = '<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t<\/script>\n</body>\n</html>';
+
+		var samples = {
+			'js1':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tctx.fillRect( '+qs.val1+', '+qs.val2+', '+qs.val3+', '+qs.val4+' );\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js2':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tctx.fillStyle = "blue";\n\n\t\tctx.fillRect( 50, 50, 75, 100 );\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js3':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tctx.fillStyle = "rgba(226, 102, 220, 0.5 )";\n\t\tctx.fillRect( 50, 50, 75, 75 );\n\t\tctx.strokeStyle = "rgba(102, 224, 226, 1 )";\n\t\tctx.strokeRect( 75, 75, 75, 75 );\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js4':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tctx.font = "'+qs.val1+' '+qs.val2+' '+qs.val3+'px '+qs.val4+'";\n\t\tctx.fillText( ":-)", 50, 100 );\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js5':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tfunction draw(){\n\t\t\tctx.font = "40px Arial";\n\t\t\tctx.fillText( ":-)", mouseX, mouseY );\n\t\t}\n\n\t\tsetInterval( draw, 1000/60 );\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js6':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji1.png";\n\n\t\tfunction draw(){\n\t\t\tctx.drawImage( emoji, mouseX, mouseY );\n\t\t}\n\n\t\tsetInterval( draw, 1000/60 );\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js7':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tvar x = 0;\n\t\tvar y = 0;\n\t\tvar dx = 1;\n\t\tvar dy = 1;\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\t\t\tx += dx;\n\t\t\ty += dy;\n\n\t\t\tif( y > HEIGHT ) {\n\t\t\t\tdy = -dy;\n\t\t\t}\n\t\t\tif( y < 0 ){\n\t\t\t\tdy = -dy;\n\t\t\t}\n\t\t\tif( x > WIDTH ) {\n\t\t\t\tdx = -dx;\n\t\t\t}\n\t\t\tif( x < 0 ){\n\t\t\t\tdx = -dx;\n\t\t\t}\n\n\t\t\tctx.fillRect( x, y, 20, 20 );\n\t\t}\n\n\t\tsetInterval( draw, 1000/60 );\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js8':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tctx.fillStyle = "rgba(20,50,80,0.5)";\n\t\tctx.beginPath();\n\t\tctx.moveTo(145,42)\n\t\tctx.lineTo(165,103);\n\t\tctx.lineTo(228,89);\n\t\tctx.closePath();\n\t\tctx.fill();\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js9':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tctx.beginPath();\n\t\tctx.arc( 150, 150, 45, PI*0, PI*2 );\n\t\tctx.stroke();\n\t\tctx.closePath(); \n\n\t<\/script>\n</body>\n</html>',
+			
+			'js10':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tctx.fillStyle = "rgba(255,0,0,0.3)";\n\t\tctx.strokeStyle = "rgba(0,150,255,0.3)";\n\t\tctx.lineWidth = 5;\n\t\tctx.beginPath();\n\t\tctx.moveTo(145,42)\n\t\tctx.lineTo(165,103);\n\t\tctx.lineTo(228,89);\n\t\tctx.lineTo(186,138);\n\t\tctx.lineTo(226,184);\n\t\tctx.lineTo(164,171);\n\t\tctx.lineTo(145,232);\n\t\tctx.lineTo(124,171);\n\t\tctx.lineTo(61,184);\n\t\tctx.lineTo(104,138);\n\t\tctx.lineTo(61,89);\n\t\tctx.lineTo(124,103);\n\t\tctx.closePath();\n\t\tctx.fill();\n\t\tctx.stroke();\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js11':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction chiStar( x, y, rotation ){\n\t\t\tctx.save();\n\t\t\tctx.translate(x,y);\n\t\t\trotation = Math.degreesToRads(rotation);\n\t\t\tctx.rotate(rotation);\n\t\t\tvar dx = -145;\n\t\t\tvar dy = -137;\n\t\t\tctx.fillStyle = "rgba(255,0,0,0.3)";\n\t\t\tctx.strokeStyle = "rgba(0,150,255,0.3)";\n\t\t\tctx.lineWidth = 5;\n\t\t\tctx.beginPath();\n\t\t\tctx.moveTo(145+dx,42+dy);\n\t\t\tctx.lineTo(165+dx,103+dy);\n\t\t\tctx.lineTo(228+dx,89+dy);\n\t\t\tctx.lineTo(186+dx,138+dy);\n\t\t\tctx.lineTo(226+dx,184+dy);\n\t\t\tctx.lineTo(164+dx,171+dy);\n\t\t\tctx.lineTo(145+dx,232+dy);\n\t\t\tctx.lineTo(124+dx,171+dy);\n\t\t\tctx.lineTo(61+dx,184+dy);\n\t\t\tctx.lineTo(104+dx,138+dy);\n\t\t\tctx.lineTo(61+dx,89+dy);\n\t\t\tctx.lineTo(124+dx,103+dy);\n\t\t\tctx.closePath();\n\t\t\tctx.fill();\n\t\t\tctx.stroke();\n\t\t\tctx.restore();\n\n\t\t}\n\t\tfunction draw(){\n\t\t\tif(mouseDown){\n\t\t\t\tchiStar(mouseX,mouseY,mouseX);\n\t\t\t}\n\t\t}\n\n\t\tsetInterval(draw, 1000/60);\n\n\t<\/script>\n</body>\n</html>',
+
+			'js12':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction circle( x, y, radius ){\n\t\t\tctx.lineWidth = 6;\n\t\t\tctx.fillStyle = "rgba(100,10,100,0.3)";\n\t\t\tctx.beginPath();\n\t\t\tctx.arc( x, y, radius, PI*0, PI*2 );\n\t\t\tctx.stroke();\n\t\t\tctx.fill();\n\t\t\tctx.closePath(); \n\t\t}\n\n\t\tcircle( 200,200, 50 );\n\t\tcircle( 150,150, 50 );\n\t\tcircle( 190,250, 50 );\n\t\tcircle( 230,180, 50 );\n\n\t<\/script>\n</body>\n</html>',
+
+			'js13':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction circle( x, y, radius ){\n\t\t\tctx.lineWidth = 6;\n\t\t\tctx.fillStyle = "rgba(100,10,100,0.3)";\n\t\t\tctx.beginPath();\n\t\t\tctx.arc( x, y, radius, PI*0, PI*2 );\n\t\t\tctx.stroke();\n\t\t\tctx.fill();\n\t\t\tctx.closePath(); \n\t\t}\n\n\t\tfor (var i = 0; i < 400; i+=40) {\n\t\t\tcircle( i, i, 50 );\n\t\t};\n\n\t<\/script>\n</body>\n</html>',
+
+			'js14':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction circle( x, y, radius ){\n\t\t\tctx.fillStyle = randomColor(0.5);\n\t\t\tctx.beginPath();\n\t\t\tctx.arc( x, y, radius, PI*0, PI*2 );\n\t\t\tctx.stroke();\n\t\t\tctx.fill();\n\t\t\tctx.closePath(); \n\t\t}\n\n\t\tfor (var i = 0; i < 300; i+=1) {\n\t\t\tvar x = Math.random() * WIDTH;\n\t\t\tvar y = Math.random() * HEIGHT;\n\t\t\tcircle( x, y, 20 );\n\t\t};\n\n\t<\/script>\n</body>\n</html>',
+			
+			'js15':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction circle( x, y, radius ){\n\t\t\tctx.fillStyle = "rgba(150,255,100,0.5)";\n\t\t\tctx.beginPath();\n\t\t\tctx.arc( x, y, radius, PI*0, PI*2 );\n\t\t\tctx.stroke();\n\t\t\tctx.fill();\n\t\t\tctx.closePath(); \n\t\t}\n\n\t\t\/\/ Fibonacci Sequence\n\t\tvar f = [1,1,2,3,5,8,13,21,34,55,89,144];\n\n\t\tfor (var i = 0; i < f.length; i+=1) {\n\t\t\tvar x = i * 30 + 100;\n\t\t\tvar y = f[i] * 2.5 +100;\n\t\t\tcircle( x, y, f[i] );\n\t\t};\n\n\t<\/script>\n</body>\n</html>',
+
+			'js16':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tvar emoji = new Image();\/\/ new image object\n\t\tvar i = 0;\t\t\t\t\/\/ index counter\n\t\tvar paths = [\t\t\t\/\/ array of paths\n\t\t\t"images/emoji1.png",\n\t\t\t"images/emoji2.png",\n\t\t\t"images/emoji3.png",\n\t\t\t"images/emoji4.png",\n\t\t\t"images/emoji5.png",\n\t\t\t"images/emoji6.png",\n\t\t\t"images/emoji7.png",\n\t\t\t"images/emoji8.png",\n\t\t\t"images/emoji9.png",\n\t\t\t"images/emoji10.png"\n\t\t];\n\n\t\tfunction draw(){\n\n\t\t\tif( mouseDown ){ \n\t\t\t\tranI = Math.random()*paths.length \n\t\t\t\ti = parseInt( ranI );\n\t\t\t}\n\t\t\temoji.src = paths[i];\n\t\t\tctx.drawImage( emoji, mouseX-64, mouseY-64 );\n\t\t}\n\t\tsetInterval( draw, 1000/60 );\n\n\t<\/script>\n</body>\n</html>',
+
+			'js17':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction circle( x, y, radius ){\n\t\t\tctx.fillStyle = "rgba(150,255,100,0.5)";\n\t\t\tctx.beginPath();\n\t\t\tctx.arc( x, y, radius, PI*0, PI*2 );\n\t\t\tctx.stroke();\n\t\t\tctx.fill();\n\t\t\tctx.closePath(); \n\t\t}\n\n\t\tfor (var i=0; i<'+qs.val1+'; i+='+qs.val2+') {\n\n\t\t\tvar x = Math.sin(i) *'+qs.val3+' +'+qs.val4+';\n\t\t\tvar y = i * '+qs.val5+';\n\n\t\t\tcircle( x, y, '+qs.val6+' );\n\t\t}\n\n\t<\/script>\n</body>\n</html>',
+
+			'js18':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction circle( x, y, radius ){\n\t\t\tctx.fillStyle = "rgba(150,255,100,0.5)";\n\t\t\tctx.beginPath();\n\t\t\tctx.arc( x, y, radius, PI*0, PI*2 );\n\t\t\tctx.stroke();\n\t\t\tctx.fill();\n\t\t\tctx.closePath(); \n\t\t}\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tvar time = Date.now()/350;\n\n\t\t\tvar x = Math.cos( time ) * 100 + WIDTH/2;\n\t\t\tvar y = Math.sin( time ) * 100 + HEIGHT/2;\n\t\t\tvar r = Math.sin( time ) * 70 + 120;\n\n\t\t\tcircle( x, y, r );\n\t\t}\n\t\tsetInterval(draw, 1000/60);\n\n\t<\/script>\n</body>\n</html>',
+
+			'js19':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tfunction circle( x, y, radius ){\n\t\t\tctx.fillStyle = "rgba(150,255,100,0.5)";\n\t\t\tctx.beginPath();\n\t\t\tctx.arc( x, y, radius, PI*0, PI*2 );\n\t\t\tctx.stroke();\n\t\t\tctx.fill();\n\t\t\tctx.closePath(); \n\t\t}\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tfor (var i=0; i < mouseY/100; i+=0.1) {\n\n\t\t\t\tvar x = Math.sin(i) * 100 + WIDTH/2;\n\t\t\t\tvar y = Math.cos(i) * 100 + HEIGHT/2;\n\n\t\t\t\tcircle( x, y, mouseY/10 );\n\t\t\t}\n\t\t}\n\t\tsetInterval(draw, 1000/60);\n\n\t<\/script>\n</body>\n</html>',
+
+			'js20':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji5.png";\n\n\t\tvar x = WIDTH/2;\n\t\tvar y = HEIGHT/2;\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\t x += Math.random() * 2 - 1;\n\t\t\t y += Math.random() * 4 - 2;\n\n\t\t\tctx.drawImage( emoji, x, y, 50, 50 );\n\t\t}\n\t\tsetInterval( draw, 1000/60 );\n\n\t<\/script>\n</body>\n</html>',
+
+			'js21':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji5.png";\n\n\t\tvar x = WIDTH/2;\n\t\tvar y = HEIGHT/2;\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\t\t\t\n\t\t\tvar time = Date.now()/1000;\n\t\t\t x += Perlin.noise(time, WIDTH) * 1.2;\n\t\t\t y += Perlin.noise(time, HEIGHT) * 2.3;\n\n\t\t\tctx.drawImage( emoji, x, y, 50, 50 );\n\t\t}\n\t\tsetInterval( draw, 1000/60 );\n\n\t<\/script>\n</body>\n</html>',
+
+			'js22':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tvar x = WIDTH/2;\n\t\tvar y = HEIGHT/2;\n\t\tvar size = 50;\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji1.png";\n\n\t\tvar p = new Particle( x, y, 1, -1.9, 0.1 );\n\t\t\tp.bounce = -0.7;\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tp.update();\n\n\t\t\tif( p.y > HEIGHT-size ){\n\t\t\t\tp.y = HEIGHT-size;\n\t\t\t\tp.vy *= p.bounce;\n\t\t\t}\n\n\t\t\tctx.drawImage(emoji, p.x,p.y, size,size);\n\t\t}\n\t\tsetInterval( draw, 1000/60 );\n\n\t<\/script>\n</body>\n</html>',
+
+			'js23':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tvar x = WIDTH/2;\n\t\tvar y = HEIGHT/2;\n\t\tvar size = 30;\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji1.png";\n\n\t\tvar p = new Particle( x, y, 1, -1.9, 0.1 );\n\t\t\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tp.update();\n\t\t\tif( p.y > HEIGHT ){\n\t\t\t\tp.x = WIDTH/2;\n\t\t\t\tp.y = HEIGHT/2;\n\t\t\t\tp.setHeading( Math.random()-1.6 );\n\t\t\t\tp.setSpeed( Math.random()*4 );\n\t\t\t}\n\t\t\tctx.drawImage(emoji, p.x,p.y, size,size);\n\n\t\t}\n\t\tsetInterval( draw, 1000/60 );\n\n\n\t<\/script>\n</body>\n</html>',
+
+			'js24':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tvar x = WIDTH/2;\n\t\tvar y = HEIGHT/2;\n\t\tvar size = 30;\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji1.png";\n\n\t\tp = [];\n\t\tfor(var i=0; i<'+qs.val1+'; i++){\n\t\t\tvar part = new Particle( x, y, 1, -1.9, '+qs.val2+' );\n\t\t\tp.push( part );\n\t\t}\n\t\t\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tfor(var i=0; i<p.length; i++){\n\t\t\t\tp[i].update();\n\t\t\t\tif( p[i].y > HEIGHT ){\n\t\t\t\t\tp[i].y = HEIGHT/2;\n\t\t\t\t\tp[i].x = WIDTH/2;\n\t\t\t\t\tp[i].setHeading( Math.random() - '+qs.val3+' );\n\t\t\t\t\tp[i].setSpeed( Math.random()*'+qs.val4+' );\n\t\t\t\t}\n\t\t\t\tctx.drawImage(emoji, p[i].x,p[i].y, size,size);\n\t\t\t}\n\t\t}\n\t\tsetInterval( draw, 1000/60 ); \n\n\n\t<\/script>\n</body>\n</html>',
+
+			'js25':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tvar x = Math.random()*WIDTH;\n\t\tvar y = Math.random()*HEIGHT;\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji5.png";\n\n\t\tvar b = new Boid(x,y);\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tb.move();\n\n\t\t\tctx.drawImage( emoji, b.x, b.y, 50,50 );\n\t\t}\n\n\t\tsetInterval(draw,1000/60); \n\n\n\t<\/script>\n</body>\n</html>',
+
+			'js26':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tvar x = Math.random()*WIDTH;\n\t\tvar y = Math.random()*HEIGHT;\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji5.png";\n\n\t\tvar b = new Boid(x,y);\n\t\t\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tb.avoid(mouseX,mouseY);\n\t\t\tb.move();\n\n\t\t\tctx.drawImage( emoji, b.x, b.y, 50,50 );\n\t\t}\n\t\tsetInterval(draw,1000/60); \n\n\n\t<\/script>\n</body>\n</html>',
+
+			'js27':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\n\t\tvar x = Math.random()*WIDTH;\n\t\tvar y = Math.random()*HEIGHT;\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji5.png";\n\n\t\tvar b = new Boid(x,y);\n\t\t\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tb.seek(mouseX,mouseY);\n\t\t\tb.move();\n\n\t\t\tctx.drawImage( emoji, b.x, b.y, 50,50 );\n\t\t}\n\t\tsetInterval(draw,1000/60); \n\n\n\t<\/script>\n</body>\n</html>',
+
+			'js28':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tvar boids = [];\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji5.png";\n\n\t\tfor (var i = 0; i < 50; i++) {\n\t\t\tvar x = WIDTH/2;\n\t\t\tvar y = HEIGHT/2;\n\t\t\tvar r = 25;\n\n\t\t\tvar boid = new Boid( x, y, r );\n\t\t\tboid.setAvoidWalls( false);\n\t\t\tboid.setInfiniteWalls( true );\n\t\t\tboids.push( boid );\n\t\t};\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tfor (var i = 0; i < boids.length; i++) {\n\n\t\t\t\tb = boids[ i ];\n\n\t\t\t\tb.flock( boids );\n\n\t\t\t\tb.avoid(mouseX,mouseY);\n\n\t\t\t\tctx.drawImage( emoji,b.x,b.y,20,20 );\n\t\t\t};\n\t\t}\n\t\tsetInterval(draw,1000/60); \n\n\n\t<\/script>\n</body>\n</html>',
+
+			'js29':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tvar boids = [];\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji5.png";\n\n\t\t\n\t\tfunction bee( b, s ){\n\t\t\tctx.save();\n\t\t\tctx.translate(b.x,b.y);\n\t\t\tvar r = Math.atan2(b.velocity.x,b.velocity.y);\n\t\t\tctx.rotate(r+PI);\n\t\t\tctx.drawImage( emoji, 0-s/2, 0-s/2, s, s );\n\t\t\tctx.restore();\n\t\t}\n\n\t\tfor (var i = 0; i < 50; i++) {\n\t\t\tvar x = WIDTH/2;\n\t\t\tvar y = HEIGHT/2;\n\t\t\tvar r = 25;\n\n\t\t\tvar boid = new Boid( x, y, r );\n\t\t\tboid.setAvoidWalls( false);\n\t\t\tboid.setInfiniteWalls( true );\n\t\t\tboids.push( boid );\n\t\t};\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tfor (var i = 0; i < boids.length; i++) {\n\n\t\t\t\tb = boids[ i ];\n\n\t\t\t\tb.flock( boids );\n\n\t\t\t\tb.avoid(mouseX,mouseY);\n\n\t\t\t\tbee( b, 20 );\n\t\t\t};\n\t\t}\n\t\tsetInterval(draw,1000/60); \n\n\n\t<\/script>\n</body>\n</html>',
+
+			'js30':'<!DOCTYPE html>\n<html>\n<head>\n\t<title> cool net art </title>\n</head>\n<body>\n\t<script src="js/wired.js"><\/script>\n\t<script>\n\t\tvar x = WIDTH/2;\n\t\tvar y = HEIGHT/2;\n\t\tvar size = 50;\n\n\t\tvar emoji = new Image();\n\t\temoji.src = "images/emoji1.png";\n\n\t\tvar p = new Particle( x, y, 1, -1.9, 0.1 );\n\n\t\tfunction draw(){\n\t\t\tctx.clearRect(0,0,WIDTH,HEIGHT);\n\n\t\t\tp.update();\n\n\t\t\tctx.drawImage(emoji, p.x,p.y, size,size);\n\t\t}\n\t\tsetInterval( draw, 1000/60 ); \n\n\n\t<\/script>\n</body>\n</html>'
+		}
+
+
+
+
+		// preview window
+		var preview = document.getElementById( 'preview' );
+
+		
+		var val = (QueryString.ex) ? samples[QueryString.ex] : basic;
+
+		// editor window 
+		var interval;
+		var editor = CodeMirror( document.getElementById( 'editor' ), {
+			// value: decode( snippets[QueryString.ex] ),
+			value: val,
+			mode: 'text/html',
+			// readOnly: "nocursor",
+			lineNumbers: true,
+			matchBrackets: true,
+			indentWithTabs: true,
+			tabSize: 4,
+			indentUnit: 4
+		});
+		editor.on( 'change', function() {
+			clearTimeout( interval );
+			interval = setTimeout( update, 500 );
+		});
+
+		// if(val=="js17") editor.options.readOnly = "nocursor";
+
+
+
+
+		// =^..^=   =^..^=   =^..^=    =^..^=    =^..^=    =^..^=    =^..^=
+		// =^..^=   =^..^=   =^..^=    =^..^=    =^..^=    =^..^=    =^..^=
+		//
+		//						UPDATE && VALIDATE via mr. doob
+		//
+		// =^..^=   =^..^=   =^..^=    =^..^=    =^..^=    =^..^=    =^..^=
+		// =^..^=   =^..^=   =^..^=    =^..^=    =^..^=    =^..^=    =^..^=
+
+		var update = function () {
+			var value = editor.getValue();
+			if ( validate( value ) ) {
+				// remove previous iframe
+				if ( preview.children.length > 0 ) { preview.removeChild( preview.firstChild ); }
+				//
+				var iframe = document.createElement( 'iframe' );
+				iframe.style.width = '100%';
+				iframe.style.height = '100%';
+				iframe.style.border = '0';
+				preview.appendChild( iframe );
+				var content = iframe.contentDocument || iframe.contentWindow.document;
+				// workaround for chrome bug
+				// http://code.google.com/p/chromium/issues/detail?id=35980#c12
+				value = value.replace( '<script>', '<script>if ( window.innerWidth === 0 ) { window.innerWidth = parent.innerWidth; window.innerHeight = parent.innerHeight; }' );
+				content.open();
+				content.write( value );
+				content.close();
+				readTheVocab(Math.ceil(mY/16),Math.ceil(mX/8)-6); // see mouse event for more Nfo
+			}
+		};
+
+		var errorLines = [], widgets = [];
+
+		var validate = function ( value ) {
+			return editor.operation( function () {
+				while ( errorLines.length > 0 ) { editor.removeLineClass( errorLines.shift(), 'background', 'errorLine' ); }
+				for ( var i = 0; i < widgets.length; i ++ ) { editor.removeLineWidget( widgets[ i ] ); }
+				widgets.length = 0;
+				// remove html
+				var string = '\n';
+				var lines = value.split( '\n' );
+				var lineCurrent = 0, lineTotal = lines.length;
+				while ( lineCurrent < lineTotal && lines[ lineCurrent ].indexOf( '<script>' ) === -1 ) { string += '\n'; lineCurrent ++; }
+				var lineStart = lineCurrent ++;
+				while ( lineCurrent < lineTotal && lines[ lineCurrent ].indexOf( '<\/script>' ) === -1 ) { string += lines[ lineCurrent ] + '\n'; lineCurrent ++;}
+				//
+				try {
+					var result = esprima.parse( string, { tolerant: true } ).errors;
+					for ( var i = 0; i < result.length; i ++ ) {
+						var error = result[ i ];
+						var message = document.createElement( 'div' );
+						message.className = 'esprima-error';
+						message.textContent = error.message.replace(/Line [0-9]+: /, '');
+						var lineNumber = error.lineNumber - 1;
+						errorLines.push( lineNumber );
+						editor.addLineClass( lineNumber, 'background', 'errorLine' );
+						var widget = editor.addLineWidget( lineNumber, message );
+						widgets.push( widget );
+					}
+				} catch ( error ) {
+					var message = document.createElement( 'div' );
+					message.className = 'esprima-error';
+					message.textContent = error.message.replace(/Line [0-9]+: /, '');
+					var lineNumber = error.lineNumber - 1;
+					errorLines.push( lineNumber );
+					editor.addLineClass( lineNumber, 'background', 'errorLine' );
+					var widget = editor.addLineWidget( lineNumber, message );
+					widgets.push( widget );
+				}
+				return errorLines.length === 0;
+			});
+		};
+
+		
+
+		//
+
+
+
+		// ♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪ ♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪ ♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪ 
+		//
+		// 			¸.·´¯`·.´¯`·.¸¸.·´¯`·. Bret Victor Inspired Functions ¸.·´¯`·.´¯`·.¸¸.·´¯`·.
+		//
+		//♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪ ♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪ ♪┏(°.°)┛┗(°.°)┓┗(°.°)┛┏(°.°)┓ ♪ 
+		//
+		// 						>> http://worrydream.com/#!/LearnableProgramming <<
+
+		var edit = document.getElementById('editor');
+		var h = document.getElementById('helper');
+		var ht = document.getElementById('top');
+		var hm = document.getElementById('mid');
+		var hb = document.getElementById('bot');
+		var gl = document.getElementById('guide-line')
+		var yellow = '#dad06f';
+		var pink = '#ed2665';
+		var green = "#a6da27";
+		var blue = "#64d6eb";
+		var purple = "#ae81f2";
+		var red = "#f92672";
+		var mX = mY = 0; // mouse
+		var mousedown = false;
+
+
+		function getLineValue( e, l ){ // ( editor, line-number )
+			var row = l-1;
+			var lines = e.getValue().split("\n");
+			var line = lines[ row ];
+			return line;
+		}
+
+		function rmSpaces( array ){ // remove all leading spaces
+			if(array[0]==" " || array[0]=="\t"){
+			    array.splice(0, 1);
+			    rmSpaces( array );
+			}
+		}
+
+		function swapTabs( a ){ // converts tabs to 4 spaces ( to properly measure cols )
+		    for(var i=0; i<a.length; i++){
+		        if(a[i]=='\t'){
+		            a[i] = " ";
+		            a.splice(i,0," ");
+		            a.splice(i,0," ");
+		            a.splice(i,0," ");
+		        }
+		    }
+		    return a;
+		}
+
+		function is( value, e, line ){ // check if line begins w/ value
+			var valArrary = value.split('');
+			var content = getLineValue( e, line );
+			if(!content) return;
+			var cntArrary = content.split('');
+			rmSpaces( cntArrary );
+			// return nothing if not
+			for (var i = 0; i < valArrary.length; i++) if( cntArrary[i] != valArrary[i] ) return;
+			// otherwise return true
+			return true;
+		}
+
+		function btw( e, line, col, begin, end ){ // check if between begin && end
+			var line = getLineValue( e, line );
+			var lArrary = line.split('');
+			var lArrary = swapTabs( lArrary );
+			var bArrary = begin.split('');
+			var bIdx, eIdx;
+			// get beginning index
+			for (var i = 0; i < lArrary.length; i++) {
+				if( lArrary[i] == bArrary[0] ){
+					if(bArrary.length>1){
+						for (var j = 0; j < bArrary.length; j++) {
+							if( bArrary[j] != lArrary[i+j] ) break
+							if(j == bArrary.length-1) bIdx = j+i;
+						}
+					} else {
+						bIdx = i+1;
+					}
+				}
+			};
+			// get ending index
+			for (var i = bIdx+1; i < lArrary.length; i++) {
+				if( lArrary[i] == end ){
+					eIdx = i;
+					break;
+				}
+			};
+			// check if inbetween indexes
+			var inbetween;
+			if( col>bIdx && col<eIdx ) inbetween = true;
+			else inbetween = false;
+
+			// break up inbetween into arrary
+			var length = eIdx-bIdx;
+			var substring = "";
+			for (var i = 0; i < length; i++) {
+				substring += lArrary[bIdx+i];
+			};
+			var subArrary = substring.split(',');
+			var unitSize = Math.floor( length/subArrary.length );
+			var unit;
+			for (var i = 0; i < subArrary.length; i++) {
+				var amt =(i+1) * unitSize;
+				if( col-bIdx <= amt  ){ unit = i+1; break; } 
+			};
+
+			// return obj
+			return { range:inbetween, array:subArrary, unit:unit }
+		}
+
+
+		// guide lines --------------------------------------------------------------------------
+
+		function p(arrary, val){ return parseInt(arrary[val]); }
+
+
+		function adjustLine( deg, left, top, length ){
+			gl.style.transform = "rotate("+parseInt(deg)+"deg)";
+			gl.style.left = parseInt(left)+"px";
+			gl.style.top = parseInt(top) +"px";
+			gl.style.width = parseInt(length) +"px";
+		}
+
+		function guideLine( show, kind, param, data ){
+			var d = data;
+			var W = window.innerWidth;
+			if(show){
+				gl.style.display = "block";
+				if(kind=="point"){
+					if(param=="x")
+						adjustLine( 0, W/2, p(d,1), p(d,0)  );					
+					else if(param=="y")
+						adjustLine( 90, W/2-p(d,1)/2+p(d,0), p(d,1)/2, p(d,1)  );				
+					else if(param=="w")
+						adjustLine( 0, W/2+p(d,0), p(d,1)+p(d,3)+5, p(d,2)  );
+					else if(param=="h")
+						adjustLine( 90, W/2-p(d,3)/2+p(d,0)+p(d,2)+5, p(d,1)+p(d,3)/2, p(d,3)  );
+				}
+				else if(kind=="arc"){
+					if(param=="r")
+						adjustLine( 0, W/2+p(d,0), p(d,1), p(d,2) );
+				}
+
+			} else {
+				gl.style.display = "none";
+			}
+		};
+
+
+		// main help function --------------------------------------------------------------------------
+
+
+		function help( show, line, txt, col,   guideline, kind, param, data ){ // display helper  
+			if(show){
+				h.style.display = 'block';
+				ht.style.height = line * 16 - 16 + "px";
+				hb.style.top = line * 16.8 + "px";
+				hb.style.height = window.innerHeight - (line * 16) + "px";
+				hb.innerHTML = txt;
+				hb.style.textAlign = "right";
+				hb.style.paddingRight = "5px";
+				hb.style.color = col || "#fff";
+			} else {
+				h.style.display = 'none';
+			}
+			if(guideline) guideLine( true, kind, param, data );
+			else guideLine( false );
+		}
+
+
+		// fun on mouse move --------------------------------------------------------------------------
+
+		function readTheVocab( line, col ){
+
+			var code = encode( editor.getValue() );
+			var e = editor;
+			var l = line; 
+			var c = col;
+
+
+			if( is("<script ",e,l) ){
+				var IN = btw(e,l,c, 'src="', '"');
+				if(IN.range)			help( true,l, "this is the path to the library you want", yellow );
+				else 					help( true,l, "this is how we load a javascript library" );
+			} 			
+			else if( is("ctx.fillRect",e,l) ){
+				var IN = btw(e,l,c, '(', ')');
+				if(IN.range){
+					if(IN.unit==1)		help( true,l, "how many pixels from the LEFT of the screen", purple,   true,"point","x",IN.array );
+					else if(IN.unit==2)	help( true,l, "how many pixels from the TOP of the screen", purple,    true,"point","y",IN.array  );
+					else if(IN.unit==3)	help( true,l, "how WIDE is the rectangle", purple,     true,"point","w",IN.array );
+					else if(IN.unit==4)	help( true,l, "how TALL is the rectangle", purple,     true,"point","h",IN.array  );
+				}		
+				else					help( true,l, "this draws a filled in rectangle" );
+			} 
+			else if( is("ctx.fillStyle",e,l) ){
+				var IN = btw(e,l,c, 'rgba(', ')');
+				if(IN.range){
+					if(IN.unit==1)		help( true,l, "this red value", yellow );
+					else if(IN.unit==2)	help( true,l, "this green value", yellow );
+					else if(IN.unit==3)	help( true,l, "this blue value", yellow );
+					else if(IN.unit==4)	help( true,l, "this alpha ( or transparency ) value", yellow );
+				}
+				else 					help( true,l, "this changes the current color" );
+			} 	
+			else if( is("setInterval",e,l) ){
+				var IN = btw(e,l,c, '(', ')');
+				if(IN.range){
+					if(IN.unit==1)		help( true,l, "this is the name of the function you want to loop" );
+					else if(IN.unit==2)	help( true,l, "this is the speed you want to loop it at", purple );
+				}
+				else 					help( true,l, "this loops a function forever" );
+			} 
+			else if( is("ctx.moveTo",e,l) ){
+				var IN = btw(e,l,c, '(', ')');
+				if(IN.range){
+					if(IN.unit==1)		help( true,l, "this is the x coordinate", purple, true,"point","x",IN.array );
+					else if(IN.unit==2)	help( true,l, "this is the y coordinate", purple, true,"point","y",IN.array );
+				}
+				else 					help( true,l, "this is the starting point for a path" );
+			} 						
+			else if( is("ctx.lineTo",e,l) ){
+				var IN = btw(e,l,c, '(', ')');
+				if(IN.range){
+					if(IN.unit==1)		help( true,l, "this is the x coordinate", purple, true,"point","x",IN.array );
+					else if(IN.unit==2)	help( true,l, "this is the y coordinate", purple, true,"point","y",IN.array );
+				}
+				else 					help( true,l, "this sets a point in a path" );
+			} 	
+			else if( is("ctx.arc",e,l) ){
+				var IN = btw(e,l,c, '(', ')');
+				if(IN.range){
+					if(IN.unit==1)		help( true,l, "the center x coordinate", purple );
+					else if(IN.unit==2)	help( true,l, "the center y coordinate", purple );
+					else if(IN.unit==3)	help( true,l, "this is the radius of the circle" );
+					else if(IN.unit==4)	help( true,l, "the starting angle", purple );
+					else if(IN.unit==5)	help( true,l, "the closing angle", purple );
+				}
+				else 					help( true,l, "this draws a circle" );
+			} 	
+			else if( is("var p = new Particle",e,l) ){
+				var IN = btw(e,l,c, '(', ')');
+				if(IN.range){
+					if(IN.unit==1)		help( true,l, "x coordinate", purple, true,"point","x",IN.array );
+					else if(IN.unit==2)	help( true,l, "y coordinate", purple, true,"point","y",IN.array );
+					else if(IN.unit==3)	help( true,l, "particle's speed", purple, true,"arc","r",IN.array );
+					else if(IN.unit==4)	help( true,l, "particle's direction", purple );
+					else if(IN.unit==5)	help( true,l, "gravity acting on particle", purple );
+				}
+				else 					help( true,l, "creates a new particle object" );
+			} 	
+			else help( false );
+
+		}
+
+
+
+
+		// _.~*~._.~*~._.~*~._.~*~._.~*~._.~*~. EVENTS .~*~._.~*~._.~*~._.~*~._.~*~._.~*~._
+
+
+		document.onmousedown = function(e) { mousedown = true; }
+		document.onmouseup = function(e) { mousedown = false; }
+		document.onmousemove = function(e){
+			mX = e.clientX;
+			mY = e.clientY;
+			var line = Math.ceil(mY/16);
+			var col = Math.ceil(mX/8) - 6;
+
+			readTheVocab( line, col );
+
+		}
+
+
+		// get encode code --------------- to add to snippets arrary -----------------------
+		document.onkeydown=function(e){
+			e = e || window.event; 
+		    if(e.keyCode == 192) {  console.log( encode( editor.getValue() ) ); } 		// ~
+		}
+
+
+		// window.onresize = function(){
+
+		// 	// setTimeout("location.reload(true);",1000);
+		// 	setupHelper();
+		
+		// }
+
+
+		update();
+
+
+
+
+	</script>
+
+</body>
+</html>

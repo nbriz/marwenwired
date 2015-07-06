@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> cool art </title>
+</head>
+<body>
+	<script src="js/wired.js"></script>
+	<script>
+
+		function draw(){
+			var h = 25;
+			var w = 25;
+			var x = mouseX - w/2;
+			var y = mouseY - h/2;
+
+			ctx.fillStyle = "rgba( 50, 50, 150, 0.5 )";
+			ctx.fillRect( x,y,w,h );
+
+		}
+
+		setInterval( draw, 1000/60 );
+
+	</script>
+</body>
+</html>
