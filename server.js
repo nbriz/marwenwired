@@ -75,7 +75,7 @@ app.post('/answer', function(req, res){ // for forms ----------------
  
   if(req.body.name == "nick" || req.body.name == "jim" ){
   	  	
-		fs.readFile('responses.json', 'utf8', function (err, data) {
+		fs.readFile( __dirname +'/responses.json', 'utf8', function (err, data) {
 			if (err) throw err;
 			obj = JSON.parse(data);
 			obj[ req.body.day ][req.body.name] = req.body.answer
@@ -95,7 +95,7 @@ app.post('/answer', function(req, res){ // for forms ----------------
 });
 
 app.get('/log', function(req, res) {	// log of answers
-	fs.readFile('responses.json', 'utf8', function (err, data) {
+	fs.readFile(__dirname +'/responses.json', 'utf8', function (err, data) {
 		if (err) throw err;
 		obj = JSON.parse(data);
 		jsonString = JSON.stringify( obj );
