@@ -36,7 +36,7 @@ app.set('view engine', 'html');
 // 
 
 var head;	// -----------  header  inclue ----------- \\
-fs.readFile( 'public/header.html', function (err,data) {
+fs.readFile( __dirname +'/public/header.html', function (err,data) {
   	if (err) { return console.log(err); }
   	else {   head = data;  }
 });
