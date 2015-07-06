@@ -1,4 +1,3 @@
 node_modules/
 responses.json
-public/_examples/*
-public/_examples
+public/_examples/
