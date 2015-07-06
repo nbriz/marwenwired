@@ -62,24 +62,26 @@
 		} 
 
 		/* colorpicker styles */
+
+		canvas { display: block; }
 		.colorpicker {
 		    background-color: #ccc;
-		    /*border-radius: 5px 5px 5px 5px;*/
-		    /*box-shadow: 2px 2px 2px #444444;*/
 		    color: #FFFFFF;
 		    font-size: 12px;
-		    /*width: 460px;*/
 		}
-		#picker {
+		#picker, #bar {
 		    cursor: crosshair;
-		    /*float: left;*/
 		    margin: 10px;
 		    border: 0;
 		}
+		#swatch { 
+			border: 1px solid #2F2F2F;
+			margin: 10px; 
+			border-radius: 5px;
+		}
 		.controls {
-		    /*float: right;*/
 		    margin: 10px;
-		    width:250px;
+		    width:256px;
 		}
 		.controls > div {
 		    border: 1px solid #2F2F2F;
@@ -97,12 +99,11 @@
 		    border: 1px solid #2F2F2F;
 		    color: #DDDDDD;
 		    float: right;
-		    font-size: 10px;
-		    height: 14px;
+		    font-size: 16px;
+		    height: 24px;
 		    margin-left: 6px;
 		    text-align: center;
-		    text-transform: uppercase;
-		    width: 75px;
+		    width: 200px;
 		}
 
 
@@ -111,19 +112,20 @@
 <body>
 
 	<br><br>
-	...coming soon...
-	<!-- colorpicker element -->
-<!-- 	<div class="colorpicker">
-	    <canvas id="picker" width="250" height="250"></canvas>
 
+	<!-- colorpicker element -->
+	<div class="colorpicker">
+	    <canvas id="picker" width="256" height="256"></canvas>
+	    <canvas id="bar" width="256" height="32"></canvas>
 	    <div class="controls">
-	        <div><label>R</label> <input type="text" id="rVal" /></div>
-	        <div><label>G</label> <input type="text" id="gVal" /></div>
-	        <div><label>B</label> <input type="text" id="bVal" /></div>
+	        <!-- <div><label>R</label> <input type="text" id="rVal" /></div> -->
+	        <!-- <div><label>G</label> <input type="text" id="gVal" /></div> -->
+	        <!-- <div><label>B</label> <input type="text" id="bVal" /></div> -->
 	        <div><label>RGBA</label> <input type="text" id="rgbVal" /></div>
 	        <div><label>HEX</label> <input type="text" id="hexVal" /></div>
 	    </div>
-	</div> -->
+	    <canvas id="swatch" width="256" height="128"></canvas>
+	</div>
 
 
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -132,19 +134,113 @@
 		
 		document.body.style.height = window.innerHeight+"px";
 
-		// var canvas = document.getElementById('picker');
-		// var ctx = canvas.getContext('2d');
-		// var W = canvas.width;
-		// var H = canvas.height;
+
+		// setup 
+
+		var canvas = document.getElementById('picker');
+		var ctx = canvas.getContext('2d');
+		var canvas2 = document.getElementById('bar');
+		var ctx2 = canvas2.getContext('2d');
+		var canvas3 = document.getElementById('swatch');
+		var ctx3 = canvas3.getContext('2d');
+		var W = canvas.width;
+		var H = canvas.height;
 
 
-		// var grd = ctx.createLinearGradient(0,H/2,W,H/2 );
-		// grd.addColorStop(0, 'rgb(255,255,255)');   
-		// grd.addColorStop(1, 'rgb(255,0,0)');
-		// ctx.fillStyle = grd;
-		// ctx.fillRect(0,0,W,H);
+		var grd = ctx.createLinearGradient(0,H/2,W,H/2 );
+		grd.addColorStop(0, 'rgb(255,255,255)');   
+		grd.addColorStop(1, 'rgb(255,0,0)');
+		ctx.fillStyle = grd;
+		ctx.fillRect(0,0,W,H);
 
-		// var sat = new Imagee();
+		var sat = new Image();
+		sat.onload = function(){
+			ctx.drawImage( this, 0, 0 );
+		}
+		sat.src = "js/colorpicker/saturation_value_gradient.png";
+
+		var horiz = new Image();
+		horiz.onload = function(){
+			ctx2.drawImage( this, 0, 0 );
+		}
+		horiz.src = "js/colorpicker/hue_gradient_horiz.png";
+
+		ctx3.fillStyle = "red";
+		ctx3.fillRect(0,0,canvas3.width,canvas3.height);
+
+
+
+		// 
+
+		function draw(r,g,b){
+			var grd = ctx.createLinearGradient(0,H/2,W,H/2 );
+			grd.addColorStop(0, 'rgb(255,255,255)');   
+			grd.addColorStop(1, 'rgb('+r+','+g+','+b+')');
+			ctx.fillStyle = grd;
+			ctx.fillRect(0,0,W,H);
+			ctx.drawImage( sat, 0, 0 );
+		}
+
+
+		function getPixel(x, y) {
+		    var p = ctx.getImageData(x, y, 1, 1).data; 
+		    var c = {r:p[0], g:p[1], b:p[2] };
+
+		    // $('#rVal').val( c.r );
+		    // $('#gVal').val( c.g );
+		    // $('#bVal').val( c.b );
+
+		    var rgb = "rgba(" +c.r+", "+ c.g+", "+ c.b+", 1.0)";
+		    $("#rgbVal").val ( rgb );
+
+		    var hex = "#" +((c.r << 16) | (c.g << 8) | c.b).toString(16);
+		    $("#hexVal").val ( hex );   
+
+		    // fill swatch
+		    ctx3.fillStyle = hex;
+			ctx3.fillRect(0,0,canvas3.width,canvas3.height);
+		}
+
+		function getHue(x, y) {
+		    var pxl = ctx2.getImageData(x, y, 1, 1).data; 
+		    draw( pxl[0], pxl[1], pxl[2] );					   
+		}
+
+
+		var over = false;
+		$('#picker').on({
+			mouseover: function(){ over = true },
+			mouseout: function(){ over = false }
+		});
+
+		var hue_over = false;
+		$('#bar').on({
+			mouseover: function(){ hue_over = true },
+			mouseout: function(){ hue_over = false }
+		});
+
+		document.onmousedown = function(e){
+
+			var hx,x;
+			var hy, y;
+			if (e.pageX || e.pageY) { 
+			  x = hx = e.pageX;
+			  y = hy = e.pageY;
+			}
+			else { 
+			  x = hx = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft; 
+			  y = hy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop; 
+			} 
+
+			x -= canvas.offsetLeft;
+			y -= canvas.offsetTop;
+
+			hx -= canvas2.offsetLeft;
+			hy -= canvas2.offsetTop;
+
+			if(over) getPixel( x,y );
+			if(hue_over) getHue( hx,hy );
+		}
 
 	
 	</script>
