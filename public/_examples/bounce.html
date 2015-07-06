@@ -33,29 +33,6 @@
 			for (var i = 0; i < p.length; i++) {
 				p[i].update();
 				
-				if (p[i].x + p[i].radius > canvas.width) {
-					p[i].x = canvas.width - p[i].radius;
-					p[i].vx *= p[i].bounce;
-				}
-				if (p[i].x - p[i].radius < 0) {
-					p[i].x = p[i].radius;
-					p[i].vx *= p[i].bounce;
-				}
-				if (p[i].y + p[i].radius > canvas.height) {
-					p[i].y = canvas.height - p[i].radius;
-					p[i].vy *= p[i].bounce;
-				}
-				if (p[i].y - p[i].radius < 0) {
-					p[i].y = p[i].radius;
-					p[i].vy *= p[i].bounce;
-				}
-				
-				if (p[i].y == canvas.height - p[i].radius) {
-					p[i].friction = 0.97;
-				} else {
-					p[i].friction = 1;
-				}
-				
 				//
 				
 				boid.avoid( mouseX, mouseY );
