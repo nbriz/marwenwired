@@ -73,7 +73,19 @@ app.get('/bonus2', function (req, res){ res.render('bonus2', { header:head }); }
 
 app.post('/answer', function(req, res){ // for forms ----------------
  
-  if(req.body.name == "nick" || req.body.name == "jim" ){
+  if( req.body.name == "nick" 
+  		|| req.body.name == "cole"
+  		|| req.body.name == "helen"
+  		|| req.body.name == "mikkail"
+  		|| req.body.name == "xavier"
+  		|| req.body.name == "miles"
+  		|| req.body.name == "jared"
+  		|| req.body.name == "delano"
+  		|| req.body.name == "nicholas"
+  		|| req.body.name == "mecca"
+  		|| req.body.name == "johari"
+  		|| req.body.name == "evan"
+   ){
   	  	
 		fs.readFile( __dirname +'/responses.json', 'utf8', function (err, data) {
 			if (err) throw err;
