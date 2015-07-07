@@ -94,7 +94,7 @@ app.post('/answer', function(req, res){ // for forms ----------------
 
 			jsonString = JSON.stringify( obj, null, 4 );
 
-			fs.writeFile("responses.json", jsonString, function(err) {
+			fs.writeFile(__dirname +'/responses.json', jsonString, function(err) {
 			    if(err) { return res.json(err); }
 			    res.render('answer', { title: 'Submitted!', name:req.body.name, header:head  });
 			}); 
