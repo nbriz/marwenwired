@@ -54,6 +54,17 @@ app.get('/', function (req, res){
 	if(host === "wwwired.net"){ res.sendFile('/home/nick/www/index.html'); } 
 
 	else if(host === "ohnoboi.com"){ res.sendFile('/home/cole/www/index.html'); } 
+	else if(host === "resurrected-eagle.com"){ res.sendFile('/home/delano/www/index.html'); } 
+	else if(host === "the-cheeseburger-apocalypse.com"){ res.sendFile('/home/evan/www/index.html'); } 
+	else if(host === "elenavel.com"){ res.sendFile('/home/helen/www/index.html'); } 
+	else if(host === "3spooki5me.com"){ res.sendFile('/home/jared/www/index.html'); } 
+	// else if(host === ".com"){ res.sendFile('/home/johari/www/index.html'); } 
+	// else if(host === ".com"){ res.sendFile('/home/mecca/www/index.html'); } 
+	else if(host === "heardramen.com"){ res.sendFile('/home/mikkail/www/index.html'); } 
+	else if(host === "antihero97.com"){ res.sendFile('/home/miles/www/index.html'); } 
+	else if(host === "everythingcentral.net"){ res.sendFile('/home/nicholas/www/index.html'); } 
+	else if(host === "gerudotactics.net"){ res.sendFile('/home/xavier/www/index.html'); } 
+	else if(host === "theshoeontheleft.com"){ res.sendFile('/home/zac/www/index.html'); } 
 
 	else {
 		res.render('index', { title: 'WWWIRED', sites:listProjects(), header:head });	
@@ -76,14 +87,7 @@ app.get('/bonus2', function (req, res){ res.render('bonus2', { header:head }); }
 
 app.post('/answer', function(req, res){ // for forms ----------------
 
-// -
-// sudo useradd -d /home/cole -s /usr/lib/sftp-server -M -N -g sftponly cole
-// sudo passwd cole 
-// sudo mkdir -p /home/cole/www
-// sudo chown -R cole:sftponly /home/cole/www
-// sudo chmod 777 /home/cole/www
 
- 
   if( req.body.name == "nick" 
   		|| req.body.name == "cole"
   		|| req.body.name == "helen"
@@ -142,10 +146,53 @@ app.get('/nick', function(req, res) {
     res.sendFile('/home/nick/www/index.html');
 });
 
+app.get('/delano', function(req, res) {
+    res.sendFile('/home/delano/www/index.html');
+});
+
 app.get('/cole', function(req, res) {
     res.sendFile('/home/cole/www/index.html');
 });
 
+app.get('/evan', function(req, res) {
+    res.sendFile('/home/evan/www/index.html');
+});
+
+app.get('/helen', function(req, res) {
+    res.sendFile('/home/helen/www/index.html');
+});
+
+app.get('/jared', function(req, res) {
+    res.sendFile('/home/jared/www/index.html');
+});
+
+app.get('/johari', function(req, res) {
+    res.sendFile('/home/johari/www/index.html');
+});
+
+app.get('/mecca', function(req, res) {
+    res.sendFile('/home/mecca/www/index.html');
+});
+
+app.get('/mikkail', function(req, res) {
+    res.sendFile('/home/mikkail/www/index.html');
+});
+
+app.get('/miles', function(req, res) {
+    res.sendFile('/home/miles/www/index.html');
+});
+
+app.get('/nicholas', function(req, res) {
+    res.sendFile('/home/nicholas/www/index.html');
+});
+
+app.get('/xavier', function(req, res) {
+    res.sendFile('/home/xavier/www/index.html');
+});
+
+app.get('/zac', function(req, res) {
+    res.sendFile('/home/zac/www/index.html');
+});
 
 
 
