@@ -68,6 +68,7 @@
 		    background-color: #ccc;
 		    color: #FFFFFF;
 		    font-size: 12px;
+		    width: 380px
 		}
 		#picker, #bar {
 		    cursor: crosshair;
@@ -106,6 +107,72 @@
 		    width: 200px;
 		}
 
+/*		.mono_scheme { 
+			position: absolute;
+			top: 62px;
+			left: 296px; 
+		}*/
+		/*.ana_scheme, .comp_scheme, .split_scheme { margin-left: 20px; height: 350px; }*/
+
+		.mono_scheme, .ana_scheme, .comp_scheme, .split_scheme, .tri_scheme, .tet_scheme { 
+			display:  none; 
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			background-color: rgba(0, 0, 0, 0.7);
+			width: 100%;
+			height: 100%;
+			color: white;
+			padding: 10px 29px;
+		}
+
+		.clrs {
+			width: 75px;
+			height:50px;
+			border: 1px solid #ccc;
+			margin: 1px; 
+			border-radius: 5px;
+		}
+		.hex { 
+			margin: 0px; 
+			font-size: 12px;
+			font-weight: bold;
+			padding-left: 8px;
+		}
+
+		.scheme_title { 
+			max-width: 240px;
+			font-size: 16px;
+			font-weight: bold;
+			text-align: center;
+		}
+		.close {
+			color: #D71855;
+			text-decoration: none;
+			cursor: pointer;
+			padding-left: 10px;
+			font-size: 13px;
+			font-weight: bold;
+		}
+
+		.title {
+			font-size: 10px;
+			font-weight: bold;
+			color:#000;
+		}
+		.lnk {
+			color: #D71855;
+			text-decoration: none;
+			cursor: pointer;
+			font-size: 10;
+			font-weight: bold;
+			max-width: 270px;
+			text-align: left;
+		}
+
+		.left { float: left; }
+		.right { float: right; }
+
 
 	</style>
 </head>
@@ -115,6 +182,16 @@
 
 	<!-- colorpicker element -->
 	<div class="colorpicker">
+		<div class="right">
+	    	<div class="title"> color palettes</div>
+	    	<div class="lnk" id="mono-lnk">- monochromatic </div>
+	    	<div class="lnk" id="ana-lnk">- analogous </div>
+	    	<div class="lnk" id="comp-lnk">- complementary </div>
+	    	<div class="lnk" id="split-lnk">- split complementary </div>
+	    	<div class="lnk" id="tri-lnk">- triadic </div>
+	    	<div class="lnk" id="tet-lnk">- tetradic </div>
+	    </div>
+
 	    <canvas id="picker" width="256" height="256"></canvas>
 	    <canvas id="bar" width="256" height="32"></canvas>
 	    <div class="controls">
@@ -125,14 +202,251 @@
 	        <div><label>HEX</label> <input type="text" id="hexVal" /></div>
 	    </div>
 	    <canvas id="swatch" width="256" height="128"></canvas>
+	    <br>
+	</div>
+
+	<div class="mono_scheme">
+		<br><br>
+		<div class="hex"> monochromatic <span class="close">[ x ]</span> </div>
+		
+		<br>
+		<div class="left">
+			<div class="clrs" id="mono1"></div>
+			<div class="hex" id="mono1_label"></div>
+			<div class="clrs" id="mono2"></div>
+			<div class="hex" id="mono2_label"></div>
+			<div class="clrs" id="mono3"></div>
+			<div class="hex" id="mono3_label"></div>
+			<div class="clrs" id="mono4"></div>
+			<div class="hex" id="mono4_label"></div>
+			<div class="clrs" id="mono5"></div>
+			<div class="hex" id="mono5_label"></div>				
+		</div>
 	</div>
 
 
+	<div class="ana_scheme">
+		<br><br>
+		<div class="hex">analogous <span class="close">[ x ]</span>  </div><br><br>
+		
+		<div class="left">
+			<div class="clrs" id="ana1"></div>
+			<div class="hex" id="ana1_label"></div>
+			<div class="clrs" id="ana2"></div>
+			<div class="hex" id="ana2_label"></div>
+			<div class="clrs" id="ana3"></div>
+			<div class="hex" id="ana3_label"></div>
+			<div class="clrs" id="ana4"></div>
+			<div class="hex" id="ana4_label"></div>
+			<div class="clrs" id="ana5"></div>
+			<div class="hex" id="ana5_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="ana11"></div>
+			<div class="hex" id="ana11_label"></div>
+			<div class="clrs" id="ana12"></div>
+			<div class="hex" id="ana12_label"></div>
+			<div class="clrs" id="ana13"></div>
+			<div class="hex" id="ana13_label"></div>
+			<div class="clrs" id="ana14"></div>
+			<div class="hex" id="ana14_label"></div>
+			<div class="clrs" id="ana15"></div>
+			<div class="hex" id="ana15_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="ana6"></div>
+			<div class="hex" id="ana6_label"></div>
+			<div class="clrs" id="ana7"></div>
+			<div class="hex" id="ana7_label"></div>
+			<div class="clrs" id="ana8"></div>
+			<div class="hex" id="ana8_label"></div>
+			<div class="clrs" id="ana9"></div>
+			<div class="hex" id="ana9_label"></div>
+			<div class="clrs" id="ana10"></div>
+			<div class="hex" id="ana10_label"></div>	
+		</div>
+
+	</div>
+
+	<br><br><br>
+
+	<div class="comp_scheme">
+		<br><br>
+		<div class="hex">complementary <span class="close">[ x ]</span>  </div><br><br>
+		<div class="left">
+			<div class="clrs" id="comp11"></div>
+			<div class="hex" id="comp11_label"></div>
+			<div class="clrs" id="comp12"></div>
+			<div class="hex" id="comp12_label"></div>
+			<div class="clrs" id="comp13"></div>
+			<div class="hex" id="comp13_label"></div>
+			<div class="clrs" id="comp14"></div>
+			<div class="hex" id="comp14_label"></div>
+			<div class="clrs" id="comp15"></div>
+			<div class="hex" id="comp15_label"></div>	
+		</div>	
+		<div class="left">
+			<div class="clrs" id="comp1"></div>
+			<div class="hex" id="comp1_label"></div>
+			<div class="clrs" id="comp2"></div>
+			<div class="hex" id="comp2_label"></div>
+			<div class="clrs" id="comp3"></div>
+			<div class="hex" id="comp3_label"></div>
+			<div class="clrs" id="comp4"></div>
+			<div class="hex" id="comp4_label"></div>
+			<div class="clrs" id="comp5"></div>
+			<div class="hex" id="comp5_label"></div>	
+		</div>
+
+	</div>
+
+	<br><br><br>
+
+	<div class="split_scheme">
+		<br><br>
+		<div class="hex">split complementary <span class="close">[ x ]</span>  </div><br><br>
+		
+		<div class="left">
+			<div class="clrs" id="split1"></div>
+			<div class="hex" id="split1_label"></div>
+			<div class="clrs" id="split2"></div>
+			<div class="hex" id="split2_label"></div>
+			<div class="clrs" id="split3"></div>
+			<div class="hex" id="split3_label"></div>
+			<div class="clrs" id="split4"></div>
+			<div class="hex" id="split4_label"></div>
+			<div class="clrs" id="split5"></div>
+			<div class="hex" id="split5_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="split11"></div>
+			<div class="hex" id="split11_label"></div>
+			<div class="clrs" id="split12"></div>
+			<div class="hex" id="split12_label"></div>
+			<div class="clrs" id="split13"></div>
+			<div class="hex" id="split13_label"></div>
+			<div class="clrs" id="split14"></div>
+			<div class="hex" id="split14_label"></div>
+			<div class="clrs" id="split15"></div>
+			<div class="hex" id="split15_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="split6"></div>
+			<div class="hex" id="split6_label"></div>
+			<div class="clrs" id="split7"></div>
+			<div class="hex" id="split7_label"></div>
+			<div class="clrs" id="split8"></div>
+			<div class="hex" id="split8_label"></div>
+			<div class="clrs" id="split9"></div>
+			<div class="hex" id="split9_label"></div>
+			<div class="clrs" id="split10"></div>
+			<div class="hex" id="split10_label"></div>	
+		</div>
+
+	</div>
+
+	<div class="tri_scheme">
+		<br><br>
+		<div class="hex">triadic <span class="close">[ x ]</span>  </div><br><br>
+		
+		<div class="left">
+			<div class="clrs" id="tri1"></div>
+			<div class="hex" id="tri1_label"></div>
+			<div class="clrs" id="tri2"></div>
+			<div class="hex" id="tri2_label"></div>
+			<div class="clrs" id="tri3"></div>
+			<div class="hex" id="tri3_label"></div>
+			<div class="clrs" id="tri4"></div>
+			<div class="hex" id="tri4_label"></div>
+			<div class="clrs" id="tri5"></div>
+			<div class="hex" id="tri5_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="tri11"></div>
+			<div class="hex" id="tri11_label"></div>
+			<div class="clrs" id="tri12"></div>
+			<div class="hex" id="tri12_label"></div>
+			<div class="clrs" id="tri13"></div>
+			<div class="hex" id="tri13_label"></div>
+			<div class="clrs" id="tri14"></div>
+			<div class="hex" id="tri14_label"></div>
+			<div class="clrs" id="tri15"></div>
+			<div class="hex" id="tri15_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="tri6"></div>
+			<div class="hex" id="tri6_label"></div>
+			<div class="clrs" id="tri7"></div>
+			<div class="hex" id="tri7_label"></div>
+			<div class="clrs" id="tri8"></div>
+			<div class="hex" id="tri8_label"></div>
+			<div class="clrs" id="tri9"></div>
+			<div class="hex" id="tri9_label"></div>
+			<div class="clrs" id="tri10"></div>
+			<div class="hex" id="tri10_label"></div>	
+		</div>
+
+	</div>
+
+	<div class="tet_scheme">
+		<br><br>
+		<div class="hex">tetradic <span class="close">[ x ]</span>  </div><br><br>
+		<div class="left">
+			<div class="clrs" id="tet16"></div>
+			<div class="hex" id="tet16_label"></div>
+			<div class="clrs" id="tet17"></div>
+			<div class="hex" id="tet17_label"></div>
+			<div class="clrs" id="tet18"></div>
+			<div class="hex" id="tet18_label"></div>
+			<div class="clrs" id="tet19"></div>
+			<div class="hex" id="tet19_label"></div>
+			<div class="clrs" id="tet20"></div>
+			<div class="hex" id="tet20_label"></div>	
+		</div>	
+		<div class="left">
+			<div class="clrs" id="tet1"></div>
+			<div class="hex" id="tet1_label"></div>
+			<div class="clrs" id="tet2"></div>
+			<div class="hex" id="tet2_label"></div>
+			<div class="clrs" id="tet3"></div>
+			<div class="hex" id="tet3_label"></div>
+			<div class="clrs" id="tet4"></div>
+			<div class="hex" id="tet4_label"></div>
+			<div class="clrs" id="tet5"></div>
+			<div class="hex" id="tet5_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="tet6"></div>
+			<div class="hex" id="tet6_label"></div>
+			<div class="clrs" id="tet7"></div>
+			<div class="hex" id="tet7_label"></div>
+			<div class="clrs" id="tet8"></div>
+			<div class="hex" id="tet8_label"></div>
+			<div class="clrs" id="tet9"></div>
+			<div class="hex" id="tet9_label"></div>
+			<div class="clrs" id="tet10"></div>
+			<div class="hex" id="tet10_label"></div>	
+		</div>
+		<div class="left">
+			<div class="clrs" id="tet11"></div>
+			<div class="hex" id="tet11_label"></div>
+			<div class="clrs" id="tet12"></div>
+			<div class="hex" id="tet12_label"></div>
+			<div class="clrs" id="tet13"></div>
+			<div class="hex" id="tet13_label"></div>
+			<div class="clrs" id="tet14"></div>
+			<div class="hex" id="tet14_label"></div>
+			<div class="clrs" id="tet15"></div>
+			<div class="hex" id="tet15_label"></div>	
+		</div>
+	</div>
+
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>	
+	<script src="js/colorpicker/BBModColor.js"></script>
 	<script>
 		
-		document.body.style.height = window.innerHeight+"px";
+		// document.body.style.height = window.innerHeight+"px";
 
 
 		// setup 
@@ -170,17 +484,108 @@
 
 
 
-		// 
+		// show schemes -----------------
 
-		function draw(r,g,b){
-			var grd = ctx.createLinearGradient(0,H/2,W,H/2 );
-			grd.addColorStop(0, 'rgb(255,255,255)');   
-			grd.addColorStop(1, 'rgb('+r+','+g+','+b+')');
-			ctx.fillStyle = grd;
-			ctx.fillRect(0,0,W,H);
-			ctx.drawImage( sat, 0, 0 );
+
+		$('#mono-lnk').on({
+			click:function(){ $('.mono_scheme').fadeIn(); }
+		});
+		$('#ana-lnk').on({
+			click:function(){ $('.ana_scheme').fadeIn(); }
+		});
+		$('#comp-lnk').on({
+			click:function(){ $('.comp_scheme').fadeIn(); }
+		});
+		$('#split-lnk').on({
+			click:function(){ $('.split_scheme').fadeIn(); }
+		});
+		$('#tri-lnk').on({
+			click:function(){ $('.tri_scheme').fadeIn(); }
+		});
+		$('#tet-lnk').on({
+			click:function(){ $('.tet_scheme').fadeIn(); }
+		});		
+		$('.close').on({
+			click:function(){
+				if( $('.mono_scheme').css('display') == "block" ) $('.mono_scheme').fadeOut();
+				if( $('.ana_scheme').css('display') == "block" ) $('.ana_scheme').fadeOut();
+				if( $('.comp_scheme').css('display') == "block" ) $('.comp_scheme').fadeOut();
+				if( $('.split_scheme').css('display') == "block" ) $('.split_scheme').fadeOut();
+				if( $('.tri_scheme').css('display') == "block" ) $('.tri_scheme').fadeOut();
+				if( $('.tet_scheme').css('display') == "block" ) $('.tet_scheme').fadeOut();
+			}
+		});
+
+		//  clicks functions ----------------------------------------------------------------------------
+
+
+		var pickedCol = new BBModColor();
+		var startColor = {r: 255, g: 0, b: 0 };
+		fillComps( startColor );
+
+		function fillComps( c ){
+
+			var settings = {
+				angle: 30,
+				tint:[ 0.4, 0.8 ], 
+				shade:[ 0.3, 0.6 ]
+			}
+
+			var settings2 = {
+				angle: 40,
+				tint:[ 0.4, 0.8 ], 
+				shade:[ 0.3, 0.6 ]
+			}
+
+			pickedCol.setRGBA( c.r, c.g, c.b );
+			pickedCol.colorScheme("monochromatic", settings);
+			pickedCol.colorScheme("analogous", settings );
+			pickedCol.colorScheme("complementary", settings );			
+			pickedCol.colorScheme("split complementary", settings );
+			pickedCol.colorScheme("triadic", settings );
+			pickedCol.colorScheme("tetradic", settings2 );
+
+			for (var i = 0; i < pickedCol.schemes["monochromatic"].length; i++) {
+				var col = pickedCol.schemes["monochromatic"][i].hex
+				$("#mono"+(i+1)).css('background-color', col );
+				$("#mono"+(i+1)+"_label").html( '"'+col+'"' );
+				$("#ana"+(i+11)).css('background-color', col );
+				$("#ana"+(i+11)+"_label").html( '"'+col+'"' );
+				$("#comp"+(i+11)).css('background-color', col );
+				$("#comp"+(i+11)+"_label").html( '"'+col+'"' );
+				$("#split"+(i+11)).css('background-color', col );
+				$("#split"+(i+11)+"_label").html( '"'+col+'"' );
+				$("#tri"+(i+11)).css('background-color', col );
+				$("#tri"+(i+11)+"_label").html( '"'+col+'"' );	
+				$("#tet"+(i+16)).css('background-color', col );
+				$("#tet"+(i+16)+"_label").html( '"'+col+'"' );	
+			};
+			for (var i = 0; i < pickedCol.schemes["analogous"].length; i++) {
+				var col = pickedCol.schemes["analogous"][i].hex
+				$("#ana"+(i+1)).css('background-color', col );
+				$("#ana"+(i+1)+"_label").html( '"'+col+'"' );
+			};
+			for (var i = 0; i < pickedCol.schemes["complementary"].length; i++) {
+				var col = pickedCol.schemes["complementary"][i].hex
+				$("#comp"+(i+1)).css('background-color', col );
+				$("#comp"+(i+1)+"_label").html( '"'+col+'"' );
+			};
+			for (var i = 0; i < pickedCol.schemes["split complementary"].length; i++) {
+				var col = pickedCol.schemes["split complementary"][i].hex
+				$("#split"+(i+1)).css('background-color', col );
+				$("#split"+(i+1)+"_label").html( '"'+col+'"' );
+			};
+			for (var i = 0; i < pickedCol.schemes["triadic"].length; i++) {
+				var col = pickedCol.schemes["triadic"][i].hex
+				$("#tri"+(i+1)).css('background-color', col );
+				$("#tri"+(i+1)+"_label").html( '"'+col+'"' );
+			};
+			for (var i = 0; i < pickedCol.schemes["tetradic"].length; i++) {
+				var col = pickedCol.schemes["tetradic"][i].hex
+				$("#tet"+(i+1)).css('background-color', col );
+				$("#tet"+(i+1)+"_label").html( '"'+col+'"' );
+			};			
 		}
-
 
 		function getPixel(x, y) {
 		    var p = ctx.getImageData(x, y, 1, 1).data; 
@@ -199,27 +604,31 @@
 		    // fill swatch
 		    ctx3.fillStyle = hex;
 			ctx3.fillRect(0,0,canvas3.width,canvas3.height);
+
+			// fill comps
+			fillComps( c );
+			
 		}
 
 		function getHue(x, y) {
 		    var pxl = ctx2.getImageData(x, y, 1, 1).data; 
-		    draw( pxl[0], pxl[1], pxl[2] );					   
+		    var grd = ctx.createLinearGradient(0,H/2,W,H/2 );
+			grd.addColorStop(0, 'rgb(255,255,255)');   
+			grd.addColorStop(1, 'rgb('+pxl[0]+','+pxl[1]+','+pxl[2]+')');
+			ctx.fillStyle = grd;
+			ctx.fillRect(0,0,W,H);
+			ctx.drawImage( sat, 0, 0 );		
 		}
 
 
+
+		// events ----------------------------------
+
 		var over = false;
-		$('#picker').on({
-			mouseover: function(){ over = true },
-			mouseout: function(){ over = false }
-		});
-
 		var hue_over = false;
-		$('#bar').on({
-			mouseover: function(){ hue_over = true },
-			mouseout: function(){ hue_over = false }
-		});
+		var mouseDown = false;
 
-		document.onmousedown = function(e){
+		function mouseCoords(e){
 
 			var hx,x;
 			var hy, y;
@@ -238,8 +647,36 @@
 			hx -= canvas2.offsetLeft;
 			hy -= canvas2.offsetTop;
 
-			if(over) getPixel( x,y );
-			if(hue_over) getHue( hx,hy );
+			return { x:x, y:y, hx:hx, hy:hy }
+		}
+
+		document.onmousedown = function(e){
+			mouseDown = true;
+			var mouse = mouseCoords(e);
+			if(over) getPixel( mouse.x,mouse.y );
+			if(hue_over) getHue( mouse.hx, mouse.hy );
+		}
+
+		document.onmouseup = function(e){
+			mouseDown = false;
+		}
+		
+		$('#picker').on({
+			mouseover: function(){ over = true },
+			mouseout: function(){ over = false }
+		});
+
+		$('#bar').on({
+			mouseover: function(){ hue_over = true },
+			mouseout: function(){ hue_over = false }
+		});
+
+		document.onmousemove = function(e){
+			if(mouseDown){
+				var mouse = mouseCoords(e);
+				if(over) getPixel( mouse.x,mouse.y );
+				if(hue_over) getHue( mouse.hx, mouse.hy );
+			}
 		}
 
 	
