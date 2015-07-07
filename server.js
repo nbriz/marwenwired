@@ -9,6 +9,7 @@ var multer = require('multer');
 app.use(express.static(__dirname +'/public'));
 
 
+
 // Automatically parses form data ( for form submit )
 // app.use(bodyParser.json()); 
 app.use(multer()); // for parsing multipart/form-data
@@ -52,6 +53,8 @@ app.get('/', function (req, res){
 
 	if(host === "wwwired.net"){ res.sendFile('/home/nick/www/index.html'); } 
 
+	else if(host === "ohnoboi.com"){ res.sendFile('/home/cole/www/index.html'); } 
+
 	else {
 		res.render('index', { title: 'WWWIRED', sites:listProjects(), header:head });	
 	}
@@ -72,6 +75,14 @@ app.get('/bonus2', function (req, res){ res.render('bonus2', { header:head }); }
 
 
 app.post('/answer', function(req, res){ // for forms ----------------
+
+// -
+// sudo useradd -d /home/cole -s /usr/lib/sftp-server -M -N -g sftponly cole
+// sudo passwd cole 
+// sudo mkdir -p /home/cole/www
+// sudo chown -R cole:sftponly /home/cole/www
+// sudo chmod 777 /home/cole/www
+
  
   if( req.body.name == "nick" 
   		|| req.body.name == "cole"
@@ -85,6 +96,7 @@ app.post('/answer', function(req, res){ // for forms ----------------
   		|| req.body.name == "mecca"
   		|| req.body.name == "johari"
   		|| req.body.name == "evan"
+  		|| req.body.name == "zac"
    ){
   	  	
 		fs.readFile( __dirname +'/responses.json', 'utf8', function (err, data) {
@@ -124,12 +136,15 @@ app.get('/log', function(req, res) {	// log of answers
 // sudo passwd bob 
 // sudo mkdir -p /home/bob/www
 // sudo chown bob:sftponly /home/bob/www
+// sudo chmod 777 /home/bob/www
 
 app.get('/nick', function(req, res) {
     res.sendFile('/home/nick/www/index.html');
 });
 
-
+app.get('/cole', function(req, res) {
+    res.sendFile('/home/cole/www/index.html');
+});
 
 
 
@@ -138,7 +153,7 @@ app.get('/nick', function(req, res) {
 // server -------------------------------------------------------------------------
 
 var server = app.listen(80, function () {
-// var server = app.listen(3001, function () {
+// var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log('listening at http://%s:%s', host, port);
