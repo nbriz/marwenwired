@@ -7,7 +7,20 @@ var multer = require('multer');
 
 // static files ---------------
 app.use(express.static(__dirname +'/public'));
-
+app.use(express.static("/home/cole/www"));
+app.use(express.static("/home/helen/www"));
+app.use(express.static("/home/mikkail/www"));
+app.use(express.static("/home/xavier/www"));
+app.use(express.static("/home/miles/www"));
+app.use(express.static("/home/jared/www"));
+app.use(express.static("/home/delano/www"));
+app.use(express.static("/home/nicholas/www"));
+app.use(express.static("/home/mecca/www"));
+app.use(express.static("/home/johari/www"));
+app.use(express.static("/home/evan/www"));
+app.use(express.static("/home/zac/www"));
+app.use(express.static("/home/jocelyn/www"));
+app.use(express.static("/home/joselyn/www"));
 
 
 // Automatically parses form data ( for form submit )
