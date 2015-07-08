@@ -144,52 +144,63 @@ app.get('/log', function(req, res) {	// log of answers
 // sudo chmod 777 /home/bob/www
 
 app.get('/nick', function(req, res) {
-    res.sendFile('/home/nick/www/index.html');
+	app.use(express.static("/home/nick/www"));
+    res.sendFile('/home/nick/www/index.html');    
 });
 
 app.get('/delano', function(req, res) {
-    res.sendFile('/home/delano/www/index.html');
+	app.use(express.static("/home/delano/www"));
+    res.sendFile('/home/delano/www/index.html');    
 });
 
 app.get('/cole', function(req, res) {
-    res.sendFile('/home/cole/www/index.html');
+	app.use(express.static("/home/cole/www"));
+    res.sendFile('/home/cole/www/index.html');    
 });
 
 app.get('/evan', function(req, res) {
-    res.sendFile('/home/evan/www/index.html');
+	app.use(express.static("/home/evan/www"));
+    res.sendFile('/home/evan/www/index.html');    
 });
 
 app.get('/helen', function(req, res) {
-    res.sendFile('/home/helen/www/index.html');
+	app.use(express.static("/home/helen/www"));
+    res.sendFile('/home/helen/www/index.html');    
 });
 
 app.get('/jared', function(req, res) {
-    res.sendFile('/home/jared/www/index.html');
+	app.use(express.static("/home/jared/www"));
+    res.sendFile('/home/jared/www/index.html');    
 });
 
 app.get('/johari', function(req, res) {
-    res.sendFile('/home/johari/www/index.html');
+	app.use(express.static("/home/johari/www"));
+    res.sendFile('/home/johari/www/index.html');    
 });
 
 app.get('/mecca', function(req, res) {
-    res.sendFile('/home/mecca/www/index.html');
+	app.use(express.static("/home/mecca/www"));
+    res.sendFile('/home/mecca/www/index.html');    
 });
 
 app.get('/mikkail', function(req, res) {
 	app.use(express.static("/home/mikkail/www"));
-    res.sendFile('/home/mikkail/www/index.html');
+    res.sendFile('/home/mikkail/www/index.html');    
 });
 
 app.get('/miles', function(req, res) {
-    res.sendFile('/home/miles/www/index.html');
+	app.use(express.static("/home/miles/www"));
+    res.sendFile('/home/miles/www/index.html');    
 });
 
 app.get('/nicholas', function(req, res) {
-    res.sendFile('/home/nicholas/www/index.html');
+	app.use(express.static("/home/nicholas/www"));
+    res.sendFile('/home/nicholas/www/index.html');    
 });
 
 app.get('/xavier', function(req, res) {
-    res.sendFile('/home/xavier/www/index.html');
+	app.use(express.static("/home/xavier/www"));
+    res.sendFile('/home/xavier/www/index.html');    
 });
 
 app.get('/zac', function(req, res) {
@@ -199,10 +210,13 @@ app.get('/zac', function(req, res) {
 
 app.get('/jocelyn', function(req, res) {
     res.sendFile('/home/jocelyn/www/index.html');
+	app.use(express.static("/home/jocelyn/www"));
+
 });
 
 app.get('/joselyn', function(req, res) {
-    res.sendFile('/home/joselyn/www/index.html');
+	app.use(express.static("/home/joselyn/www"));
+    res.sendFile('/home/joselyn/www/index.html');    
 });
 
 
