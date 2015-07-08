@@ -101,6 +101,8 @@ app.post('/answer', function(req, res){ // for forms ----------------
   		|| req.body.name == "johari"
   		|| req.body.name == "evan"
   		|| req.body.name == "zac"
+  		|| req.body.name == "jocelyn"
+  		|| req.body.name == "joselyn"
    ){
   	  	
 		fs.readFile( __dirname +'/responses.json', 'utf8', function (err, data) {
@@ -194,6 +196,13 @@ app.get('/zac', function(req, res) {
     res.sendFile('/home/zac/www/index.html');
 });
 
+app.get('/jocelyn', function(req, res) {
+    res.sendFile('/home/jocelyn/www/index.html');
+});
+
+app.get('/joselyn', function(req, res) {
+    res.sendFile('/home/joselyn/www/index.html');
+});
 
 
 
