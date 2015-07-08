@@ -67,7 +67,7 @@
 				
 				<div class="row clearfix">
 				    <div class="column third"> 
-						<p> <b>CSS</b> ( or Cascading Style Sheets ) are rules organized in blocks of code that specify how different elements should appear on your page. There are three different ways to add CSS to your page ( watch <a href="http://www.dontfeartheinternet.com/css/don%E2%80%99t-fear-starting-from-scratch-2" target="_blank">this video</a> to learn them all ) but for the purposes of this class we'll be using <code>&lt;style&gt;</code> tags, inside our head</p>
+						<p> <b>CSS</b> ( or Cascading Style Sheets ) are rules organized in blocks of code that specify how different elements should appear on your page. There are three different ways to add CSS to your page ( watch <a href="http://www.dontfeartheinternet.com/css/don%E2%80%99t-fear-starting-from-scratch-2" target="_blank">this video</a> to learn them all ) but for the purposes of this class we'll be using <code class="k">&lt;style&gt;</code> tags, inside our head</p>
 				    </div>
 				    <div class="column two-thirds"> 
 				    	<img src="images/diagram5.png" class="rwd">
@@ -87,7 +87,7 @@
 				<div class="row clearfix">
 				    <div class="column half"> 
 				    	<p> 
-				    		a CSS block contains two parts, a <b>selector</b> which specifies which element(s) the rules will be applied to and a <code>{</code> <b>declaration</b> <code>}</code>, surounded by curly brackets, which specifies <i>how</i> the element should be styled.
+				    		a CSS block contains two parts, a <b>selector</b> which specifies which element(s) the rules will be applied to and a <code class="k">{</code> <b>declaration</b> <code class="k">}</code>, surounded by curly brackets, which specifies <i>how</i> the element should be styled.
 						</p>
 				    </div>
 				    <div class="column half"> 
@@ -102,9 +102,9 @@
 				<img src="images/diagram6.png" class="rwd"><br><br>
 
 				<p>
-					in the example above all the <code>&lt;a&gt;</code> tags ( or link elements ) on the page are being changed. rather than the default blue underlined text, they will now all be purple ( <code>color: #ff00ff</code> ) with no underline ( <code>text-decoration: none;</code> ).
+					in the example above all the <code class="k">&lt;a&gt;</code> tags ( or link elements ) on the page are being changed. rather than the default blue underlined text, they will now all be purple ( <code class="k">color: #ff00ff</code> ) with no underline ( <code class="k">text-decoration: none;</code> ).
 					<br><br>
-					elements can have multiple CSS states, in the example above we've also created a <b>hover</b> state for our links, so everytime the mouse hovers over a link the color changes to <code>#cc3399</code>
+					elements can have multiple CSS states, in the example above we've also created a <b>hover</b> state for our links, so everytime the mouse hovers over a link the color changes to <code class="k">#cc3399</code>
 				</p>
 
 				<br><br><br>
@@ -112,7 +112,7 @@
 				<div class="row clearfix">
 				    <div class="column third"> 
 						<p>
-							sometimes you want to be able to target specific elements on your page ( rather than effecting all the elements of a specific type ), you can do this by creating a <b>class</b> ( <code>.</code> followed by a <code>name</code> ) and then assigning that class to an element using the html class attribute.
+							sometimes you want to be able to target specific elements on your page ( rather than effecting all the elements of a specific type ), you can do this by creating a <b>class</b> ( <code class="k">.</code> followed by a <code class="k">name</code> ) and then assigning that class to an element using the html class attribute.
 						</p>
 				    </div>
 				    <div class="column two-thirds"> 
@@ -129,7 +129,7 @@
 
 				<div class="row clearfix">
 				    <div class="column third"> 
-						<p> there are only so many colors that have names ( green, purple, pink ). if you want to assigne a specific color in your CSS you need to use numerical values. <br><br>These come in different forms the most common is <b>HEX</b> which looks like <code>color: #00ff33;</code>,<br> <br> or <b>RGB</b> which looks like <code>color: rgb( 0, 255, 204 );</code></p>
+						<p> there are only so many colors that have names ( green, purple, pink ). if you want to assigne a specific color in your CSS you need to use numerical values. <br><br>These come in different forms the most common is <b>HEX</b> which looks like <code class="k">color: #00ff33;</code>,<br> <br> or <b>RGB</b> which looks like <code class="k">color: rgb( 0, 255, 204 );</code></p>
 				    </div>
 				    <div class="column two-thirds"> 
 				    	<div class="colorpicker"></div>
@@ -151,7 +151,7 @@
 				    <div class="column third"> 
 				    	<p>
 				    		<br><br>
-							each element on your page is like a container ( literally a box ). some of these are display <b>block</b>, which means they are as wide as the full page by default, forcing a line break between the element below it ( ex: <code>&lt;h1&gt; &lt;p&gt; &lt;div&gt; </code> ). others are display <b>inline</b> which are only ever as wide as their content by default ( ex: <code>&lt;a&gt; &lt;img&gt; &lt;span&gt; </code> )
+							each element on your page is like a container ( literally a box ). some of these are display <b>block</b>, which means they are as wide as the full page by default, forcing a line break between the element below it ( ex: <code class="k">&lt;h1&gt; &lt;p&gt; &lt;div&gt; </code> ). others are display <b>inline</b> which are only ever as wide as their content by default ( ex: <code class="k">&lt;a&gt; &lt;img&gt; &lt;span&gt; </code> )
 						</p>
 				    </div>
 				</div>
@@ -166,7 +166,7 @@
 			    <div class="column third"> 
 			    	<br><br>
 					<p>
-						by default the elements on the page appear in the order that they appear in your code, the way they are positioned is referred to as the “normal flow” of the document. Block elements ( ex: <code> &lt;div&gt;, &lt;p&gt;, &lt;h1&gt; </code>) flow vertically, stacked one after the other. Inline elements ( ex: <code> &lt;span&gt;, &lt;a&gt;, &lt;img&gt; </code>) flow horizontally ( left to right ) one next to the other. You can override this default flow by asigning CSS positioning to your elements.
+						by default the elements on the page appear in the order that they appear in your code, the way they are positioned is referred to as the “normal flow” of the document. Block elements ( ex: <code class="k"> &lt;div&gt;, &lt;p&gt;, &lt;h1&gt; </code>) flow vertically, stacked one after the other. Inline elements ( ex: <code class="k"> &lt;span&gt;, &lt;a&gt;, &lt;img&gt; </code>) flow horizontally ( left to right ) one next to the other. You can override this default flow by asigning CSS positioning to your elements.
 					</p>
 			    </div>
 			    <div class="column two-thirds"> 
@@ -186,7 +186,7 @@
 					<img src="images/fonts.png" class="rwd">
 			    </div>
 			    <div class="column third"> 
-			    	you can add custom fonts to your document by using the CSS <code>@font-face</code> rule, giving your font a custom name and specifying the url to the font file you want to use. 
+			    	you can add custom fonts to your document by using the CSS <code class="k">@font-face</code> rule, giving your font a custom name and specifying the url to the font file you want to use. 
 					keep in mind that not all font files work on all browsers though ( but otf tends to be the most cross-platform friendly ). <br>
 					<br>check out <a href="http://www.fontsquirrel.com/" target="_blank">font squirrel</a> for more font options.
 			    	
