@@ -64,6 +64,9 @@ app.get('/', function (req, res){
 	else if(host === "everythingcentral.net"){ res.sendFile('/home/nicholas/www/index.html'); } 
 	else if(host === "gerudotactics.net"){ res.sendFile('/home/xavier/www/index.html'); } 
 	else if(host === "theshoeontheleft.com"){ res.sendFile('/home/zac/www/index.html'); } 
+	else if(host === "johari-parris-photography.com"){ res.sendFile('/home/johari/www/index.html'); } 
+	else if(host === "crownthejocelyn.com"){ res.sendFile('/home/jocelyn/www/index.html'); } 
+	else if(host === "yoitzcorona.link"){ res.sendFile('/home/joselyn/www/index.html'); } 
 
 	else {
 		res.render('index', { title: 'WWWIRED', sites:listProjects(), header:head });	
