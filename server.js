@@ -52,21 +52,66 @@ app.get('/', function (req, res){
 
 	if(host === "wwwired.net"){ res.sendFile('/home/nick/www/index.html'); } 
 
-	else if(host === "ohnoboi.com"){ res.sendFile('/home/cole/www/index.html'); } 
-	else if(host === "resurrected-eagle.com"){ res.sendFile('/home/delano/www/index.html'); } 
-	else if(host === "the-cheeseburger-apocalypse.com"){ res.sendFile('/home/evan/www/index.html'); } 
-	else if(host === "elenavel.com"){ res.sendFile('/home/helen/www/index.html'); } 
-	else if(host === "3spooki5me.com"){ res.sendFile('/home/jared/www/index.html'); } 
-	// else if(host === ".com"){ res.sendFile('/home/johari/www/index.html'); } 
-	// else if(host === ".com"){ res.sendFile('/home/mecca/www/index.html'); } 
-	else if(host === "heardramen.com"){ res.sendFile('/home/mikkail/www/index.html'); } 
-	else if(host === "antihero97.com"){ res.sendFile('/home/miles/www/index.html'); } 
-	else if(host === "everythingcentral.net"){ res.sendFile('/home/nicholas/www/index.html'); } 
-	else if(host === "gerudotactics.net"){ res.sendFile('/home/xavier/www/index.html'); } 
-	else if(host === "theshoeontheleft.com"){ res.sendFile('/home/zac/www/index.html'); } 
-	else if(host === "johari-parris-photography.com"){ res.sendFile('/home/johari/www/index.html'); } 
-	else if(host === "crownthejocelyn.com"){ res.sendFile('/home/jocelyn/www/index.html'); } 
-	else if(host === "yoitzcorona.link"){ res.sendFile('/home/joselyn/www/index.html'); } 
+	else if(host === "ohnoboi.com"){ 
+		app.use(express.static("/home/cole/www"));
+		res.sendFile('/home/cole/www/index.html'); 
+	} 
+	else if(host === "resurrected-eagle.com"){ 
+		app.use(express.static("/home/delano/www"));
+		res.sendFile('/home/delano/www/index.html'); 
+	} 
+	else if(host === "the-cheeseburger-apocalypse.com"){ 
+		app.use(express.static("/home/evan/www"));
+		res.sendFile('/home/evan/www/index.html'); 
+	} 
+	else if(host === "elenavel.com"){ 
+		app.use(express.static("/home/helen/www"));
+		res.sendFile('/home/helen/www/index.html'); 
+	} 
+	else if(host === "3spooki5me.com"){ 
+		app.use(express.static("/home/jared/www"));
+		res.sendFile('/home/jared/www/index.html'); 
+	} 
+	// else if(host === ".com"){ 
+		app.use(express.static("/home/johari/www"));
+		res.sendFile('/home/johari/www/index.html'); 
+	} 
+	// else if(host === ".com"){ 
+		app.use(express.static("/home/mecca/www"));
+		res.sendFile('/home/mecca/www/index.html'); 
+	} 
+	else if(host === "heardramen.com"){ 
+		app.use(express.static("/home/mikkail/www"));
+		res.sendFile('/home/mikkail/www/index.html'); 
+	} 
+	else if(host === "antihero97.com"){ 
+		app.use(express.static("/home/miles/www"));
+		res.sendFile('/home/miles/www/index.html'); 
+	} 
+	else if(host === "everythingcentral.net"){ 
+		app.use(express.static("/home/nicholas/www"));
+		res.sendFile('/home/nicholas/www/index.html'); 
+	} 
+	else if(host === "gerudotactics.net"){ 
+		app.use(express.static("/home/xavier/www"));
+		res.sendFile('/home/xavier/www/index.html'); 
+	} 
+	else if(host === "theshoeontheleft.com"){ 
+		app.use(express.static("/home/zac/www"));
+		res.sendFile('/home/zac/www/index.html'); 
+	} 
+	else if(host === "johari-parris-photography.com"){ 
+		app.use(express.static("/home/johari/www"));
+		res.sendFile('/home/johari/www/index.html'); 
+	} 
+	else if(host === "crownthejocelyn.com"){ 
+		app.use(express.static("/home/jocelyn/www"));
+		res.sendFile('/home/jocelyn/www/index.html'); 
+	} 
+	else if(host === "yoitzcorona.link"){ 
+		app.use(express.static("/home/joselyn/www"));
+		res.sendFile('/home/joselyn/www/index.html'); 
+	} 
 
 	else {
 		res.render('index', { title: 'WWWIRED', sites:listProjects(), header:head });	
