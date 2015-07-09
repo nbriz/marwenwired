@@ -73,13 +73,13 @@ app.get('/', function (req, res){
 		res.sendFile('/home/jared/www/index.html'); 
 	} 
 	// else if(host === ".com"){ 
-		app.use(express.static("/home/johari/www"));
-		res.sendFile('/home/johari/www/index.html'); 
-	} 
+	// 	app.use(express.static("/home/johari/www"));
+	// 	res.sendFile('/home/johari/www/index.html'); 
+	// } 
 	// else if(host === ".com"){ 
-		app.use(express.static("/home/mecca/www"));
-		res.sendFile('/home/mecca/www/index.html'); 
-	} 
+	// 	app.use(express.static("/home/mecca/www"));
+	// 	res.sendFile('/home/mecca/www/index.html'); 
+	// } 
 	else if(host === "heardramen.com"){ 
 		app.use(express.static("/home/mikkail/www"));
 		res.sendFile('/home/mikkail/www/index.html'); 
