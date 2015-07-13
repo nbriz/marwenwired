@@ -21,6 +21,14 @@
 
 			.c select { color: black;}
 
+			.trace {
+				border: 1px solid rgb(0, 190, 227);
+				border-radius: 23px;
+				padding: 10px;
+				width: 1050px;
+				margin: 50px 0;
+			}
+
 		</style>
 		
 
@@ -133,12 +141,19 @@ while (i < 400) {
 
 				<iframe src="editor.html?ex=js10" class="eframe" id="e1" style="height:555px"></iframe>
 				<br><br>
-				
+
+				<div class="trace">
+					<p>
+						if you prefer to trace over an image, you can load one up into the canvas below by pasting an image URL into the input field and clicking on "add trace image". then follow the short instructions for generating canvas code from tracing the image.
+					</p><br><br>
+
+					<iframe src="http://nickbriz.com/other/convas/" style="width: 1050px;height: 730px;border:none"></iframe>
+					<br><br>
+				</div>
+
 				<p>
 					some custom shapes can get so long ( like the one above ) that it helps to consolidate them into a custom function just like we did with our circle. below are some steps you can take to create your own custom shape function.
 				</p>	<br><br>
-
-
 
 				<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ instruction row [ BEGIN ] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<div class="row clearfix">
