@@ -72,14 +72,10 @@ app.get('/', function (req, res){
 		app.use(express.static("/home/jared/www"));
 		res.sendFile('/home/jared/www/index.html'); 
 	} 
-	// else if(host === ".com"){ 
-	// 	app.use(express.static("/home/johari/www"));
-	// 	res.sendFile('/home/johari/www/index.html'); 
-	// } 
-	// else if(host === ".com"){ 
-	// 	app.use(express.static("/home/mecca/www"));
-	// 	res.sendFile('/home/mecca/www/index.html'); 
-	// } 
+	else if(host === "kalopsia.xyz"){ 
+		app.use(express.static("/home/mecca/www"));
+		res.sendFile('/home/mecca/www/index.html'); 
+	} 
 	else if(host === "heardramen.com"){ 
 		app.use(express.static("/home/mikkail/www"));
 		res.sendFile('/home/mikkail/www/index.html'); 
@@ -271,8 +267,8 @@ app.get('/joselyn', function(req, res) {
 
 // server -------------------------------------------------------------------------
 
-var server = app.listen(80, function () {
-// var server = app.listen(3000, function () {
+// var server = app.listen(80, function () {
+var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log('listening at http://%s:%s', host, port);
