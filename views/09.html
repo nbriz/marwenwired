@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Marwen Wired </title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="description" content="Marwen Internet Art Class">
+		<meta name="author" content="Nick Briz">
+		<link rel="icon" type="image/x-icon"  href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+		<link rel="stylesheet" href="/js/highlight/styles/monokai_sublime.css">
+		<style>
+
+			/*highlight overrides*/
+
+			.hljs-keyword { color: #66D9EF; }
+			.hljs-tag .hljs-value,{ color: #E6DB74; }
+			.hljs-function { color: #fff; }
+			.hljs-built_in{ color: #66D9EF; }
+
+			.c select { color: black;}
+
+		</style>
+		
+
+	</head>
+	<body>
+
+		<div class="loader"> loading </div>
+
+ 		<span id="header">{{header}}</span>
+
+		<!-- start of main section -->
+
+		
+		<iframe src="canvascheatsheet.html" id="cheatsheet"></iframe>
+
+		<section id="main">
+			<div class="container">
+
+				<h1>Open Studio</h1>
+				<br><br>
+				<br>
+
+				<h2> marwen survey! </h2>
+				<br><br>
+				before anything else <a href="https://www.surveymonkey.com/r/studentsu15" target="_blank">click here</a> to complete your marwen survey :)
+				
+				<br><br><br><br>
+
+				<h2> set up your final project </h2><br>
+				<br>
+				<p>
+					1. as always, before we start working on our final project we need to create a folder for it ( name it anything you want, but make sure it’s all one word and lower case ).
+					<br><br>
+					2. then create a js folder with a copy of the wired.js library inside of it <br><br>
+					3. if you plan on using images, create an images folder with all your image files inside of that <br><br>
+					4. finally create your index.html file, our usual template is below ( with an empty animation loop ) for your convenience <br><br><br>
+				</p>
+
+				<div class="row clearfix">
+				    <div class="column full"> 
+<pre><code class="xml">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt; final project &lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script src="js/wired.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        
+        function draw(){
+        
+        
+        }
+        setInterval( draw,1000/60 );
+
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+				    </div>
+				</div>
+				
+<br><br>
+				<p>
+					6. make sure you comment ALL the sections in your code ( you'll thank yourself in the future )<br><br>
+
+					7. if you want to hide the ruler ( and you definitely should when you are ready to release the project ) place <code class="k">showRuler( false );</code> at the top of your JavaScript code <br><br>
+					8. don't forget that you can use the "color picker" in the menu to get different rgba/hex color values as well as using the "cheat sheet" if you forgot how to do something specific that we've learned in JavaScript
+				</p><br><br><br><br>
+
+
+				<h2> examples 4 ur consideration </h2><br><br>
+
+				<p> an example with a custom image function ( similar to our custom shape functions ) reacting to the mouse position </p><br><br>
+
+				<iframe src="editor.html?ex=js31" class="eframe" id="e1" style="height:600px"></iframe>
+				<br><br><br><br>
+
+				<p> an example with a custom shape function ( in this case a circle ) drawn using perlin noise </p><br><br>
+
+				<iframe src="editor.html?ex=js34" class="eframe" id="e1" style="height:600px"></iframe>
+				<br><br><br><br>
+
+				<p> a boid example turned into a simple game </p><br><br>
+
+				<iframe src="editor.html?ex=js33" class="eframe" id="e1" style="height:600px"></iframe>
+				<br><br><br><br>
+
+				<p> multiple boids chase the mouse and leave painterly streaks </p><br><br>
+
+				<iframe src="editor.html?ex=js35" class="eframe" id="e1" style="height:600px"></iframe>
+				<br><br><br><br>	
+
+				<p> an example of using multiple particles </p><br><br>
+
+				<iframe src="editor.html?ex=js32" class="eframe" id="e1" style="height:600px"></iframe>
+				<br><br><br><br>			
+
+				<br><br><br><br>
+
+
+
+			</div>
+		</section>
+
+
+		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js" type="text/javascript"><\/script>')</script>
+		<script src="/js/highlight/highlight.pack.js"></script>
+		<script src="js/dat.gui.min.js"></script>
+		<script src="js/main.js"></script>
+
+	</body>
+</html>
